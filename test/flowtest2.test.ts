@@ -161,6 +161,7 @@ describe("Launchpad flow test 2 with multiple users", function () {
         constants.AddressZero,
         constants.AddressZero,
         constants.AddressZero,
+        constants.AddressZero,
         false,
         constants.AddressZero,
       );

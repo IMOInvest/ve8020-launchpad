@@ -46,6 +46,18 @@ interface ERC20:
     def approve(spender: address, amount: uint256) -> bool: nonpayable
     def transferFrom(spender: address, to: address, amount: uint256) -> bool: nonpayable
 
+# Define the IAuraLocker interface in Vyper (for Aura BPT)
+interface IAuraLocker:
+    def isShutdown() -> bool: view
+    def lock(_account: address, _amount: uint256): nonpayable
+    def checkpointEpoch(): nonpayable
+    def epochCount() -> uint256: view
+    def balanceAtEpochOf(_epoch: uint256, _user: address) -> uint256: view
+    def totalSupplyAtEpoch(_epoch: uint256) -> uint256: view
+    def queueNewRewards(_rewardsToken: address, reward: uint256): nonpayable
+    def getReward(_account: address, _stake: bool): nonpayable
+    #def getReward(_account: address): nonpayable
+
 
 # Interface for checking whether address belongs to a whitelisted
 # type of a smart wallet.
@@ -155,6 +167,7 @@ penalty_treasury: public(address)
 
 balMinter: public(address)
 balToken: public(address)
+auraToken : public(address)
 rewardReceiver: public(address)
 rewardReceiverChangeable: public(bool)
 
@@ -173,6 +186,7 @@ def initialize(
     _admin_early_unlock: address,
     _max_time: uint256,
     _balToken: address,
+    _auraToken: address,
     _balMinter: address,
     _rewardReceiver: address,
     _rewardReceiverChangeable: bool,
@@ -188,6 +202,7 @@ def initialize(
     @param _admin_early_unlock Admin to enable Eraly-Unlock feature (zero-address to disable forever)
     @param _max_time Locking max time
     @param _balToken Address of the Balancer token
+    @param _auraToken Address of the Aura token
     @param _balMinter Address of the Balancer minter
     @param _rewardReceiver Address of the reward receiver
     @param _rewardReceiverChangeable Boolean indicating whether the reward receiver is changeable
@@ -223,6 +238,7 @@ def initialize(
     self.admin_early_unlock = _admin_early_unlock
 
     self.balToken = _balToken
+    self.auraToken = _auraToken
     self.balMinter = _balMinter
     self.rewardReceiver = _rewardReceiver
     self.rewardReceiverChangeable = _rewardReceiverChangeable
@@ -979,6 +995,41 @@ def claimExternalRewards():
             RewardDistributor(self.rewardDistributor).depositToken(self.balToken, balBalance)
         else:
             assert ERC20(self.balToken).transfer(self.rewardReceiver, balBalance, default_return_value=True)
+
+@external
+@nonreentrant("lock")
+def claimAuraRewards():
+    """
+    @notice Claims Aura and Bal rewards from the BPT
+    @dev Calls the getReward function on the IAuraLocker contract
+    """
+    auraLocker: address = self.TOKEN  # Assuming self.auraLocker is the address of the IAuraLocker contract
+    _stake : bool = True
+    IAuraLocker(auraLocker).getReward(self.rewardReceiver, _stake) #claim Aura and Bal rewards to this contract
+    balBalance: uint256 = ERC20(self.balToken).balanceOf(self)
+    auraBalance: uint256 = ERC20(self.auraToken).balanceOf(self)
+
+    if balBalance > 0:
+        # distributes rewards using rewardDistributor into current week
+        if self.rewardReceiver == self.rewardDistributor:
+            #If the rewards Receiver is the same as the distributor, use the built in function
+            #Claim Bal and distribute in RewardsDistributor
+            assert ERC20(self.balToken).approve(self.rewardDistributor, balBalance, default_return_value=True)
+            RewardDistributor(self.rewardDistributor).depositToken(self.balToken, balBalance)
+        else:
+            assert ERC20(self.balToken).transfer(self.rewardReceiver, balBalance, default_return_value=True)
+
+    if auraBalance > 0:
+        # distributes rewards using rewardDistributor into current week
+        if self.rewardReceiver == self.rewardDistributor:
+            #If the rewards Receiver is the same as the distributor, use the built in function
+            #Claim Aura and distribute in RewardsDistributor
+            assert ERC20(self.auraToken).approve(self.rewardDistributor, auraBalance, default_return_value=True)
+            RewardDistributor(self.rewardDistributor).depositToken(self.auraToken, auraBalance)
+        else:
+            assert ERC20(self.auraToken).transfer(self.rewardReceiver, auraBalance, default_return_value=True)
+
+        
 
 
 @external

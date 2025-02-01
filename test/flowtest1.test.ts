@@ -167,6 +167,7 @@ describe("Launchpad flow test", function () {
         constants.AddressZero,
         constants.AddressZero,
         constants.AddressZero,
+        constants.AddressZero,
         false,
         constants.AddressZero,
       );

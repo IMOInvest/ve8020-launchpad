@@ -158,6 +158,7 @@ describe("Lock-cancel unit tests", function () {
         constants.AddressZero,
         constants.AddressZero,
         constants.AddressZero,
+        constants.AddressZero,
         false,
         constants.AddressZero,
       );

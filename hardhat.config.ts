@@ -2,6 +2,8 @@ import { HardhatUserConfig } from "hardhat/config";
 import "hardhat-contract-sizer";
 import "@nomicfoundation/hardhat-toolbox";
 import "@nomiclabs/hardhat-vyper";
+import "@nomicfoundation/hardhat-foundry";
+
 
 const config = require("./config.js");
 

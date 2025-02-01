@@ -166,6 +166,7 @@ describe("Launchpad flow test 3 with multiple rewards", function () {
         constants.AddressZero,
         constants.AddressZero,
         constants.AddressZero,
+        constants.AddressZero,
         false,
         constants.AddressZero,
       );
