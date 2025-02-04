@@ -22,6 +22,7 @@ import {
   LensReward,
   RewardFaucet,
   BalancerToken,
+  AuraToken,
   BalancerMinter,
 } from "../typechain-types";
 
@@ -64,6 +65,7 @@ let smartWalletChecker: SmartWalletWhitelist;
 let smartCheckerAllower: SmartWalletChecker;
 
 let balToken: BalancerToken;
+let auraToken: AuraToken;
 let balMinter: BalancerMinter;
 
 let DAY: number = 60 * 60 * 24;
@@ -105,6 +107,10 @@ describe("Launchpad flow test", function () {
 
     const balFactory = await ethers.getContractFactory('BalancerToken');
     balToken = (await balFactory.deploy()) as BalancerToken;
+
+    
+    const auraFactory = await ethers.getContractFactory('AuraToken');
+    auraToken = (await auraFactory.deploy()) as BalancerToken;
 
     const balMinterFactory = await ethers.getContractFactory('BalancerMinter');
     balMinter = (await balMinterFactory.deploy(balToken.address)) as BalancerMinter;
@@ -204,6 +210,7 @@ describe("Launchpad flow test", function () {
         rewardDistributorImpl.address,
         rewardFaucetImpl.address,
         balToken.address,
+        auraToken.address,
         balMinter.address
         )) as Launchpad;
     });
@@ -337,6 +344,7 @@ describe("Launchpad flow test", function () {
           constants.AddressZero,
           maxLockTime,
           balToken.address,
+          auraToken.address,
           balMinter.address,
           creatorAddress,
           true,

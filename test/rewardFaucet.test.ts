@@ -22,6 +22,7 @@ import {
   LensReward,
   RewardFaucet,
   BalancerToken,
+  AuraToken,
   BalancerMinter,
 } from "../typechain-types";
 
@@ -62,6 +63,7 @@ let launchpad: Launchpad;
 let lens: LensReward;
 
 let balToken: BalancerToken;
+let auraToken: AuraToken;
 let balMinter: BalancerMinter;
 
 let DAY: number = 60 * 60 * 24;
@@ -98,6 +100,9 @@ describe("RewardFaucet tests", function () {
 
     const balFactory = await ethers.getContractFactory('BalancerToken');
     balToken = (await balFactory.deploy()) as BalancerToken;
+
+    const auraFactory = await ethers.getContractFactory('AuraToken');
+    auraToken = (await auraFactory.deploy()) as AuraToken;
 
     const balMinterFactory = await ethers.getContractFactory('BalancerMinter');
     balMinter = (await balMinterFactory.deploy(balToken.address)) as BalancerMinter;
@@ -191,6 +196,7 @@ describe("RewardFaucet tests", function () {
         rewardDistributorImpl.address,
         rewardFaucetImpl.address,
         balToken.address,
+        auraToken.address,
         balMinter.address
         )) as Launchpad;
     });

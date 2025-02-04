@@ -9,6 +9,7 @@ votingEscrow: public(immutable(address))
 rewardDistributor: public(immutable(address))
 rewardFaucet: public(immutable(address))
 balToken: public(immutable(address))
+auraToken: public(immutable(address))
 balMinter: public(immutable(address))
 
 
@@ -22,6 +23,7 @@ interface IVotingEscrow:
         _admin_early_unlock: address,
         _maxLockTime: uint256,
         _balToken: address,
+        _auraToken: address,
         _balMinter: address,
         _rewardReceiver: address,
         _rewardReceiverChangeable: bool,
@@ -55,6 +57,7 @@ def __init__(
     _rewardDistributor: address,
     _rewardFaucet: address,
     _balToken: address,
+    _auraToken: address,
     _balMinter: address
 ):
     assert (
@@ -62,6 +65,7 @@ def __init__(
         _rewardDistributor != empty(address) and
         _rewardFaucet != empty(address) and
         _balToken != empty(address) and
+        _auraToken != empty(address) and
         _balMinter != empty(address)
     ), "zero address"
 
@@ -69,6 +73,7 @@ def __init__(
     rewardDistributor = _rewardDistributor
     rewardFaucet = _rewardFaucet
     balToken = _balToken
+    auraToken = _auraToken
     balMinter = _balMinter
 
 
@@ -95,6 +100,7 @@ def deploy(
     @param rewardReceiver The receiver address of claimed BAL-token rewards
     """
     assert(balToken != tokenBptAddr), '!bal'
+    assert(auraToken != tokenBptAddr), '!aura'
     newVotingEscrow: address = create_minimal_proxy_to(votingEscrow)
     newRewardDistributor: address = create_minimal_proxy_to(rewardDistributor)
     
@@ -114,6 +120,7 @@ def deploy(
         admin_early_unlock,
         maxLockTime,
         balToken,
+        auraToken,
         balMinter,
         rewardReceiver_,
         rewardReceiverChangeable,

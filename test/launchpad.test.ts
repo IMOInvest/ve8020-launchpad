@@ -19,6 +19,7 @@ import {
   BPTToken,
   RewardFaucet,
   BalancerToken,
+  AuraToken,
   BalancerMinter,
 } from "../typechain-types";
 
@@ -50,6 +51,8 @@ let launchpadFactory: ContractFactory;
 let launchpad: Launchpad;
 
 let balToken: BalancerToken;
+let auraToken: AuraToken;
+
 let balMinter: BalancerMinter;
 
 let DAY: number = 60 * 60 * 24;
@@ -83,6 +86,9 @@ describe("Launchpad", function () {
 
     const balFactory = await ethers.getContractFactory('BalancerToken');
     balToken = (await balFactory.deploy()) as BalancerToken;
+
+    const auraFactory = await ethers.getContractFactory('AuraToken');
+    auraToken = (await auraFactory.deploy()) as AuraToken;
 
     const balMinterFactory = await ethers.getContractFactory('BalancerMinter');
     balMinter = (await balMinterFactory.deploy(balToken.address)) as BalancerMinter;
@@ -192,6 +198,7 @@ describe("Launchpad", function () {
         rewardDistributorImpl.address,
         rewardFaucetImpl.address,
         balToken.address,
+        auraToken.address,
         balMinter.address
         )).to.be.revertedWith('zero address');
     });
@@ -204,6 +211,7 @@ describe("Launchpad", function () {
         constants.AddressZero,
         rewardFaucetImpl.address,
         balToken.address,
+        auraToken.address,
         balMinter.address
         )).to.be.revertedWith('zero address');
     });
@@ -216,6 +224,7 @@ describe("Launchpad", function () {
         rewardDistributorImpl.address,
         constants.AddressZero,
         balToken.address,
+        auraToken.address,
         balMinter.address
         )).to.be.revertedWith('zero address');
     });
@@ -227,6 +236,7 @@ describe("Launchpad", function () {
         votingEscrowImpl.address,
         rewardDistributorImpl.address,
         rewardFaucetImpl.address,
+        constants.AddressZero,
         constants.AddressZero,
         balMinter.address
         )).to.be.revertedWith('zero address');
@@ -240,6 +250,7 @@ describe("Launchpad", function () {
         rewardDistributorImpl.address,
         rewardFaucetImpl.address,
         balToken.address,
+        auraToken.address,
         constants.AddressZero
         )).to.be.revertedWith('zero address');
     });
@@ -253,6 +264,7 @@ describe("Launchpad", function () {
         rewardDistributorImpl.address,
         rewardFaucetImpl.address,
         balToken.address,
+        auraToken.address,
         balMinter.address
         )) as Launchpad;
     });
@@ -485,6 +497,7 @@ describe("Launchpad", function () {
           constants.AddressZero,
           maxLockTime,
           balToken.address,
+          auraToken.address,
           balMinter.address,
           creatorAddress,
           true,
