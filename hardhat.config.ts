@@ -3,9 +3,19 @@ import "hardhat-contract-sizer";
 import "@nomicfoundation/hardhat-toolbox";
 import "@nomiclabs/hardhat-vyper";
 import "@nomicfoundation/hardhat-foundry";
+import * as tdly from "@tenderly/hardhat-tenderly";
+
 
 
 const config = require("./config.js");
+
+const { TENDERLY_PRIVATE_VERIFICATION, TENDERLY_AUTOMATIC_VERIFICATION } =
+  process.env;
+
+
+
+const privateVerification = TENDERLY_PRIVATE_VERIFICATION === "true";
+const automaticVerifications = TENDERLY_AUTOMATIC_VERIFICATION === "true";
 
 const hhconfig: HardhatUserConfig = {
   solidity: {
@@ -71,6 +81,16 @@ const hhconfig: HardhatUserConfig = {
         url: config.rpcUrl,
         accounts: config.testnetAccounts,
     },
+    baseTenderly : {
+      url: config.rpcUrl,
+      accounts: config.mainnetAccounts,
+    },
+    tenderly: {
+      url: config.rpcUrl,
+      project: process.env.TENDERLY_PROJECT ?? "",
+      username: process.env.TENDERLY_USERNAME ?? "",
+      privateVerification,
+    },
   },
 
   // docs: https://www.npmjs.com/package/@nomiclabs/hardhat-etherscan
@@ -87,10 +107,21 @@ const hhconfig: HardhatUserConfig = {
 
       polygon: config.apiKeyPolygonScan,
       polygonMumbai: config.apiKeyPolygonScan,
+      baseTenderly: config.apiKeyBaseTenderly,
 
       // to get all supported networks
       // npx hardhat verify --list-networks
     },
+    customChains: [
+      {
+        network: "baseTenderly",
+        chainId: 8453,
+        urls: {
+          apiURL: "https://virtual.base.rpc.tenderly.co/e5e92447-4eed-4341-849a-dd58b7433971/verify/etherscan",
+          browserURL: ""
+        }
+      }
+    ]
   },
 };
 

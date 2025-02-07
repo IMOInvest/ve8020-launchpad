@@ -1,0 +1,8 @@
+{
+    "wake.compiler.solc.remappings": [
+        "@balancer-labs/=node_modules/@balancer-labs/",
+        "@openzeppelin/=node_modules/@openzeppelin/",
+        "forge-std/=lib/forge-std/src/",
+        "hardhat/=node_modules/hardhat/"
+    ]
+}
