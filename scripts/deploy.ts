@@ -1,40 +1,24 @@
-import { ethers, tenderly } from "hardhat";
+import { ethers } from "hardhat";
+import { deployAndVerify } from "./helpers/common";
 import chalk from "chalk";
 
-// Modified deployAndVerify function
-async function deployAndVerify(contractName: string, args: any[]) {
-  console.log(`Deploying ${contractName}...`);
-  
-  const Contract = await ethers.getContractFactory(contractName);
-  let contract = await Contract.deploy(...args);
-  
-  // Wait for deployment - required for Tenderly verification
-  contract = await contract.deployed();
-
-  const address = await contract.address;
-  
-  console.log(`${contractName} deployed to:`, address);
-
-  console.log('verification automatique :', process.env.TENDERLY_AUTOMATIC_VERIFICATION);
-
-  return contract;
-}
-  
+require("dotenv").config();
 
 async function main() {
   const [owner] = await ethers.getSigners();
   console.log('Deployer address:', owner.address);
 
-  // Deploy implementations
+  // we need only implementations for the launchpad
   const votingEscrowImpl = await deployAndVerify('VotingEscrow', []);
   const rewardDistributorImpl = await deployAndVerify('RewardDistributor', []);
   const rewardFaucetImpl = await deployAndVerify('RewardFaucet', []);
 
+  // @todo
   const balToken = "0x4158734d47fc9692176b5085e0f52ee0da5d47f1";
   const balMinter = "0x0c5538098EBe88175078972F514C9e101D325D4F";
   const auraToken = '0x1509706a6c66ca549ff0cb464de88231ddbe213b';
   
-  // Deploy launchpad
+  // deploying launchpad
   const launchpad = await deployAndVerify(
     'Launchpad',
     [
@@ -45,31 +29,31 @@ async function main() {
       auraToken,
       balMinter
     ]
-  );
+  )
 
-  console.log(chalk.green('\nDeployment Summary:'));
-  console.log('VotingEscrow Implementation:', votingEscrowImpl.address);
-  console.log('RewardDistributor Implementation:', rewardDistributorImpl.address);
-  console.log('RewardFaucet Implementation:', rewardFaucetImpl.address);
-  console.log('Launchpad:', launchpad.address);
+  console.log('The VotingEscrow Implementation deployed at:', votingEscrowImpl.address);
+  console.log('The RewardDistributor Implementation deployed at:', rewardDistributorImpl.address);
+  console.log('The RewardFaucet Implementation deployed at:', rewardFaucetImpl.address);
 
-  // Generate constructor arguments for manual verification if needed
-  
+  console.log('The Launchpad deployed at:', launchpad.address);
+
   const abi = [
     'constructor(address,address,address,address,address,address)',
   ];
   const contract = new ethers.utils.Interface(abi);
-  const encodedArguments = contract.encodeDeploy([
-    votingEscrowImpl.address,
-    rewardDistributorImpl.address,
-    rewardFaucetImpl.address,
-    balToken,
-    auraToken,
-    balMinter
-  ]);
+  const encodedArguments = contract.encodeDeploy(
+    [
+      votingEscrowImpl.address,
+      rewardDistributorImpl.address,
+      rewardFaucetImpl.address,
+      balToken,
+      auraToken,
+      balMinter
+    ]
+  );
 
   console.log(
-    chalk.green.bold('\n❗️ Constructor Arguments (ABI-encoded) for Launchpad:'),
+    chalk.green.bold('\n❗️ Use following Constructor Arguments (ABI-encoded) for Launchpad verification:'),
   );
   console.log(encodedArguments.slice(2));
 }

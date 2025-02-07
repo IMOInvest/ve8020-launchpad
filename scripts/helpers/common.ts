@@ -1,16 +1,19 @@
 import { ethers, network, run } from "hardhat";
 
+require("dotenv").config();
+
+
 export async function deployAndVerify(contractName: string, args: any[]) {
   const Contract = await ethers.getContractFactory(contractName);
 
   console.log('Deploying', contractName);
-  const contract = await Contract.deploy(...args);
+  let contract = await Contract.deploy(...args);
+
+  contract = await contract.deployed();
   console.log(`${contractName} deployed to: ${contract.address}`);
 
-  await contract.deployed();
-  console.log("Done");
-
   const networkName = network.name;
+  /*
 
   if (networkName != "hardhat" && !['Launchpad', 'VotingEscrow'].includes(contractName)) {
     console.log(`Verifying contract ${contractName} ...`);
@@ -30,5 +33,12 @@ export async function deployAndVerify(contractName: string, args: any[]) {
           console.log("Error message", error.message);
       }
     }
+  */
+  deployAndVerify(contractName,args).catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });
+
+
   return contract;
 }
