@@ -71,6 +71,10 @@ const hhconfig: HardhatUserConfig = {
         url: config.rpcUrl,
         accounts: config.testnetAccounts,
     },
+    baseTenderly : {
+      url: config.rpcUrl,
+      accounts: config.mainnetAccounts,
+    },
   },
 
   // docs: https://www.npmjs.com/package/@nomiclabs/hardhat-etherscan
@@ -88,9 +92,21 @@ const hhconfig: HardhatUserConfig = {
       polygon: config.apiKeyPolygonScan,
       polygonMumbai: config.apiKeyPolygonScan,
 
+      baseTenderly: config.apiKeyBaseTenderly,
+
       // to get all supported networks
       // npx hardhat verify --list-networks
     },
+    customChains: [
+      {
+        network: "baseTenderly",
+        chainId: 8453,
+        urls: {
+          apiURL: "https://virtual.base.rpc.tenderly.co/41fe81ae-04be-430d-8b01-6d700bf41d47/verify/etherscan",
+          browserURL: "https://virtual.base.rpc.tenderly.co/41fe81ae-04be-430d-8b01-6d700bf41d47/verify/etherscan"
+        }
+      }
+    ]
   },
 };
 
