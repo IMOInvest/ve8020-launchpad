@@ -12,8 +12,9 @@ async function main() {
   const rewardFaucetImpl = await deployAndVerify('RewardFaucet', []);
 
   // @todo
-  const balToken = "0xba665c75fb0AdedEa6e24Fa25A28F77d38C009a8";
-  const balMinter = "0x28af2Ef4f71Cd5EA47a61Ea81932E4Df4dC790A6";
+  const balToken = "0x4158734d47fc9692176b5085e0f52ee0da5d47f1";
+  const balMinter = "0x0c5538098EBe88175078972F514C9e101D325D4F";
+  const auraToken = '0x1509706a6c66ca549ff0cb464de88231ddbe213b';
   
   // deploying launchpad
   const launchpad = await deployAndVerify(
@@ -23,6 +24,7 @@ async function main() {
       rewardDistributorImpl.address,
       rewardFaucetImpl.address,
       balToken,
+      auraToken,
       balMinter
     ]
   )
@@ -34,7 +36,7 @@ async function main() {
   console.log('The Launchpad deployed at:', launchpad.address);
 
   const abi = [
-    'constructor(address,address,address,address,address)',
+    'constructor(address,address,address,address,address,address)',
   ];
   const contract = new ethers.utils.Interface(abi);
   const encodedArguments = contract.encodeDeploy(
@@ -43,6 +45,7 @@ async function main() {
       rewardDistributorImpl.address,
       rewardFaucetImpl.address,
       balToken,
+      auraToken,
       balMinter
     ]
   );
