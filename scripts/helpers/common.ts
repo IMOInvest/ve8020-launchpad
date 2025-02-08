@@ -1,7 +1,10 @@
 import { ethers, network, run } from "hardhat";
+import hre from 'hardhat'
+
 
 export async function deployAndVerify(contractName: string, args: any[]) {
   const Contract = await ethers.getContractFactory(contractName);
+
 
   console.log('Deploying', contractName);
   const contract = await Contract.deploy(...args);
@@ -19,6 +22,7 @@ export async function deployAndVerify(contractName: string, args: any[]) {
           console.log('Waiting for 5 seconds until chain is ready for verifying')
           setTimeout(resolve, 5000);
         });
+
         await run("verify:verify", {
               address: contract.address,
               constructorArguments: args,

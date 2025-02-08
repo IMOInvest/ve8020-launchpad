@@ -102,8 +102,8 @@ const hhconfig: HardhatUserConfig = {
         network: "baseTenderly",
         chainId: 8453,
         urls: {
-          apiURL: "https://virtual.base.rpc.tenderly.co/41fe81ae-04be-430d-8b01-6d700bf41d47/verify/etherscan",
-          browserURL: "https://virtual.base.rpc.tenderly.co/41fe81ae-04be-430d-8b01-6d700bf41d47/verify/etherscan"
+          apiURL: "https://virtual.base.rpc.tenderly.co/157a9218-5a43-4f3a-9830-33942d48d56a",
+          browserURL: "https://virtual.base.rpc.tenderly.co/157a9218-5a43-4f3a-9830-33942d48d56a"
         }
       }
     ]
