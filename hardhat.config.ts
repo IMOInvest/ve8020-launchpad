@@ -3,7 +3,7 @@ import "hardhat-contract-sizer";
 import "@nomicfoundation/hardhat-toolbox";
 import "@nomiclabs/hardhat-vyper";
 import "@nomicfoundation/hardhat-foundry";
-import * as tdly from "@tenderly/hardhat-tenderly";
+import "@tenderly/hardhat-tenderly";
 
 
 
@@ -52,14 +52,14 @@ const hhconfig: HardhatUserConfig = {
 
   networks: {
     virtual_base: {
-      url: "https://virtual.base.rpc.tenderly.co/e6bcbb6f-f37f-45db-bfe0-c85019847821",
+      url: "https://virtual.base.rpc.tenderly.co/f16ba934-9d01-47c8-87c6-e1c8e35ef886",
       chainId: 8453,
       currency: "VETH"
     },
   },
   tenderly: {
     // https://docs.tenderly.co/account/projects/account-project-slug
-    project: "imo",
+    project: "Imo",
     username: "hybr1d",
   },
 };

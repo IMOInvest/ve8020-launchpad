@@ -1,4 +1,5 @@
 import { ethers, network, run } from "hardhat";
+import "@tenderly/hardhat-tenderly";
 
 require("dotenv").config();
 
