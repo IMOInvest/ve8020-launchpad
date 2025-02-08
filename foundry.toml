@@ -4,3 +4,13 @@ out = 'out'
 libs = ['node_modules', 'lib']
 test = 'test'
 cache_path  = 'cache_forge'
+
+[vyper]
+path = "node_modules/@nomiclabs/hardhat-vyper"
+
+cbor_metadata = true
+# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
+ 
+[etherscan]
+#                   Paste TENDERLY_ACCESS_TOKEN            Chain ID         Verifier URL: RPC_URL/verify/etherscan
+virtual_base = { key = "OWZCOggznXlbrlamjlWeuoqliVg6NA59", chain = 8453, url = "${https://virtual.base.rpc.tenderly.co/9febe1b3-4ff3-4bd2-b4d0-c301eeb15771/verify/etherscan}" }

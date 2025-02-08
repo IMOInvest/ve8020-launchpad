@@ -1,0 +1,364 @@
+2025-02-08T00:02:50.676Z hardhat:core:vars:varsManager Creating a new instance of VarsManager
+2025-02-08T00:02:50.677Z hardhat:core:vars:varsManager Loading ENV variables if any
+2025-02-08T00:02:50.685Z hardhat:core:config Loading Hardhat config from /home/Loris/IMO/ve8020-launchpad/hardhat.config.ts
+2025-02-08T00:02:50.960Z hardhat:core:hre Creating HardhatRuntimeEnvironment
+2025-02-08T00:02:50.963Z hardhat:core:global-dir Looking up Client Id at /home/Loris/.local/share/hardhat-nodejs/analytics.json
+2025-02-08T00:02:50.966Z hardhat:core:global-dir Client Id found: 0fd974a9-8dce-4e97-9a41-1db042bed27a
+2025-02-08T00:02:51.043Z hardhat:core:analytics Sending hit for task
+2025-02-08T00:02:51.043Z hardhat:core:analytics Hit payload: {"client_id":"0fd974a9-8dce-4e97-9a41-1db042bed27a","user_id":"0fd974a9-8dce-4e97-9a41-1db042bed27a","user_properties":{"projectId":{"value":"hardhat-project"},"userType":{"value":"Developer"},"hardhatVersion":{"value":"Hardhat 2.22.18"},"operatingSystem":{"value":"linux"},"nodeVersion":{"value":"v20.16.0"}},"events":[{"name":"task","params":{"engagement_time_msec":"10000","session_id":"0.5562663480859571"}}]}
+2025-02-08T00:02:51.108Z hardhat:core:hre Running task run
+2025-02-08T00:02:51.126Z hardhat:core:hre Running task compile
+2025-02-08T00:02:51.127Z hardhat:core:hre Running compile's super
+2025-02-08T00:02:51.127Z hardhat:core:hre Running compile's super
+2025-02-08T00:02:51.127Z hardhat:core:hre Running task compile:get-compilation-tasks
+2025-02-08T00:02:51.128Z hardhat:core:hre Running compile:get-compilation-tasks's super
+2025-02-08T00:02:51.129Z hardhat:core:hre Running task compile:solidity
+2025-02-08T00:02:51.129Z hardhat:core:hre Running task compile:solidity:get-source-paths
+2025-02-08T00:02:51.134Z hardhat:core:hre Running task compile:solidity:get-source-names
+2025-02-08T00:02:51.150Z hardhat:core:hre Running task compile:solidity:get-dependency-graph
+2025-02-08T00:02:51.151Z hardhat:core:hre Running task compile:solidity:get-remappings
+2025-02-08T00:02:51.201Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.202Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.203Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.204Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.205Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.205Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.205Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.206Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.206Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.206Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.207Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.207Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.207Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.207Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.208Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.208Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.222Z hardhat:core:analytics Hit for task sent successfully
+2025-02-08T00:02:51.227Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.227Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.228Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.228Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.228Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.228Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.228Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.228Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.229Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.229Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.229Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.229Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.229Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.229Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.229Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.229Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.230Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.230Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.230Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.249Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.250Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.250Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.250Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.250Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.251Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.251Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.251Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.251Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.252Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.252Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.252Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.252Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.253Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.255Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.255Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.256Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.256Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.257Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.257Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.257Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.258Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.258Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.258Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.258Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.258Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.258Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.260Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.260Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.260Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.267Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.268Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.268Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.269Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.271Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.271Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.272Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.273Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.273Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.273Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.274Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.274Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.274Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.274Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.277Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.277Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.277Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.278Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.281Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.281Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.281Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.282Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.283Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.283Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.283Z hardhat:core:hre Running task compile:solidity:transform-import-name
+2025-02-08T00:02:51.286Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.287Z hardhat:core:hre Running task compile:solidity:read-file
+2025-02-08T00:02:51.301Z hardhat:core:hre Running task compile:solidity:get-compilation-jobs
+2025-02-08T00:02:51.302Z hardhat:core:tasks:compile The dependency graph was divided in '7' connected components
+2025-02-08T00:02:51.302Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.302Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.303Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/LensReward.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.303Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.303Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol' will be compiled with version '0.7.6'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/interfaces/IVotingEscrow.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/interfaces/IRewardDistributor.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/interfaces/IRewardFaucet.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/InputHelpers.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/openzeppelin/SafeERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/openzeppelin/SafeMath.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/openzeppelin/ReentrancyGuard.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/math/Math.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/OptionalOnlyCaller.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/interfaces/IVotingEscrow.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/openzeppelin/IERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/openzeppelin/IERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/openzeppelin/IERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/SignaturesValidator.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/IOptionalOnlyCaller.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/openzeppelin/Address.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/EOASignaturesValidator.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/openzeppelin/IERC1271.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/openzeppelin/EIP712.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/ISignaturesValidator.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardDistributor.sol'
+2025-02-08T00:02:51.304Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.305Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.305Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/RewardFaucet.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.305Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/security/ReentrancyGuard.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardFaucet.sol'
+2025-02-08T00:02:51.305Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardFaucet.sol'
+2025-02-08T00:02:51.305Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/utils/Address.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardFaucet.sol'
+2025-02-08T00:02:51.305Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardFaucet.sol'
+2025-02-08T00:02:51.305Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Permit.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/RewardFaucet.sol'
+2025-02-08T00:02:51.305Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.305Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.306Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/interfaces/ILaunchpad.sol' will be compiled with version '0.7.6'
+2025-02-08T00:02:51.306Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.306Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.306Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/mock/BalancerMinter.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.306Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.306Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.307Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/utils/SmartWalletChecker.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.307Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.307Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.307Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/utils/SmartWalletWhitelist.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.308Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.308Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.308Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/OptionalOnlyCaller.sol' will be compiled with version '0.7.6'
+2025-02-08T00:02:51.309Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/SignaturesValidator.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/OptionalOnlyCaller.sol'
+2025-02-08T00:02:51.309Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/IOptionalOnlyCaller.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/OptionalOnlyCaller.sol'
+2025-02-08T00:02:51.309Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/OptionalOnlyCaller.sol'
+2025-02-08T00:02:51.309Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/openzeppelin/Address.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/OptionalOnlyCaller.sol'
+2025-02-08T00:02:51.309Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/EOASignaturesValidator.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/OptionalOnlyCaller.sol'
+2025-02-08T00:02:51.309Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/openzeppelin/IERC1271.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/OptionalOnlyCaller.sol'
+2025-02-08T00:02:51.309Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/OptionalOnlyCaller.sol'
+2025-02-08T00:02:51.309Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/OptionalOnlyCaller.sol'
+2025-02-08T00:02:51.309Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/openzeppelin/EIP712.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/OptionalOnlyCaller.sol'
+2025-02-08T00:02:51.309Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/ISignaturesValidator.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/OptionalOnlyCaller.sol'
+2025-02-08T00:02:51.309Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.309Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.309Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.309Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/utils/Address.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol'
+2025-02-08T00:02:51.309Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol'
+2025-02-08T00:02:51.309Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Permit.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol'
+2025-02-08T00:02:51.310Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.310Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.310Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.310Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.310Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.310Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Permit.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.310Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.310Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.310Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/EOASignaturesValidator.sol' will be compiled with version '0.7.6'
+2025-02-08T00:02:51.310Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/EOASignaturesValidator.sol'
+2025-02-08T00:02:51.310Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/openzeppelin/EIP712.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/EOASignaturesValidator.sol'
+2025-02-08T00:02:51.310Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/ISignaturesValidator.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/EOASignaturesValidator.sol'
+2025-02-08T00:02:51.310Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.311Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.311Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.311Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.311Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.311Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/ISignaturesValidator.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.311Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.311Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.311Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.311Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol'
+2025-02-08T00:02:51.311Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.311Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.311Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/openzeppelin/EIP712.sol' will be compiled with version '0.7.6'
+2025-02-08T00:02:51.312Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.312Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.312Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.312Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/utils/Context.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol'
+2025-02-08T00:02:51.312Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol'
+2025-02-08T00:02:51.312Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol'
+2025-02-08T00:02:51.312Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol'
+2025-02-08T00:02:51.312Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.312Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.312Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/SignaturesValidator.sol' will be compiled with version '0.7.6'
+2025-02-08T00:02:51.312Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/openzeppelin/Address.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/SignaturesValidator.sol'
+2025-02-08T00:02:51.312Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/EOASignaturesValidator.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/SignaturesValidator.sol'
+2025-02-08T00:02:51.312Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/openzeppelin/IERC1271.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/SignaturesValidator.sol'
+2025-02-08T00:02:51.312Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/SignaturesValidator.sol'
+2025-02-08T00:02:51.312Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/SignaturesValidator.sol'
+2025-02-08T00:02:51.312Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/openzeppelin/EIP712.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/SignaturesValidator.sol'
+2025-02-08T00:02:51.312Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/ISignaturesValidator.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/SignaturesValidator.sol'
+2025-02-08T00:02:51.312Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.312Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.312Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/utils/Context.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.312Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.313Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.313Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/openzeppelin/IERC1271.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.313Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.313Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.313Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/mock/Token.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.313Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/Token.sol'
+2025-02-08T00:02:51.313Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/utils/Context.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/Token.sol'
+2025-02-08T00:02:51.313Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/Token.sol'
+2025-02-08T00:02:51.313Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/Token.sol'
+2025-02-08T00:02:51.313Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/Token.sol'
+2025-02-08T00:02:51.313Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.313Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.313Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/openzeppelin/Address.sol' will be compiled with version '0.7.6'
+2025-02-08T00:02:51.313Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/openzeppelin/Address.sol'
+2025-02-08T00:02:51.314Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.314Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.314Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/mock/BptToken.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.314Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/BptToken.sol'
+2025-02-08T00:02:51.314Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/utils/Context.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/BptToken.sol'
+2025-02-08T00:02:51.314Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/BptToken.sol'
+2025-02-08T00:02:51.314Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/BptToken.sol'
+2025-02-08T00:02:51.314Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/BptToken.sol'
+2025-02-08T00:02:51.314Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.314Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.314Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/math/Math.sol' will be compiled with version '0.7.6'
+2025-02-08T00:02:51.314Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/math/Math.sol'
+2025-02-08T00:02:51.314Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.314Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.314Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/mock/BalancerToken.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.315Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/BalancerToken.sol'
+2025-02-08T00:02:51.315Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/utils/Context.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/BalancerToken.sol'
+2025-02-08T00:02:51.315Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/BalancerToken.sol'
+2025-02-08T00:02:51.315Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/BalancerToken.sol'
+2025-02-08T00:02:51.315Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/BalancerToken.sol'
+2025-02-08T00:02:51.315Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.315Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.315Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/openzeppelin/ReentrancyGuard.sol' will be compiled with version '0.7.6'
+2025-02-08T00:02:51.315Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/openzeppelin/ReentrancyGuard.sol'
+2025-02-08T00:02:51.315Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.315Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.315Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/mock/AuraToken.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.315Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/AuraToken.sol'
+2025-02-08T00:02:51.315Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/utils/Context.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/AuraToken.sol'
+2025-02-08T00:02:51.315Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/AuraToken.sol'
+2025-02-08T00:02:51.315Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/AuraToken.sol'
+2025-02-08T00:02:51.315Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/AuraToken.sol'
+2025-02-08T00:02:51.315Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.315Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.316Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/openzeppelin/SafeMath.sol' will be compiled with version '0.7.6'
+2025-02-08T00:02:51.316Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/openzeppelin/SafeMath.sol'
+2025-02-08T00:02:51.316Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.316Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.316Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/mock/AuraBptToken.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.316Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/interfaces/IAuraLocker.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/AuraBptToken.sol'
+2025-02-08T00:02:51.316Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/AuraBptToken.sol'
+2025-02-08T00:02:51.316Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/utils/Context.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/AuraBptToken.sol'
+2025-02-08T00:02:51.316Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/AuraBptToken.sol'
+2025-02-08T00:02:51.316Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/AuraBptToken.sol'
+2025-02-08T00:02:51.316Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/mock/AuraBptToken.sol'
+2025-02-08T00:02:51.316Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.316Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.316Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/openzeppelin/SafeERC20.sol' will be compiled with version '0.7.6'
+2025-02-08T00:02:51.316Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/openzeppelin/IERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/openzeppelin/SafeERC20.sol'
+2025-02-08T00:02:51.316Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/openzeppelin/SafeERC20.sol'
+2025-02-08T00:02:51.316Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.316Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.316Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/interfaces/IAuraLocker.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.316Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.317Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.317Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/openzeppelin/IERC20.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.317Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.317Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.317Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/utils/Address.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.317Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.317Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.317Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/InputHelpers.sol' will be compiled with version '0.7.6'
+2025-02-08T00:02:51.317Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/openzeppelin/IERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/InputHelpers.sol'
+2025-02-08T00:02:51.317Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-solidity-utils@4.0.0/node_modules/@balancer-labs/v2-solidity-utils/contracts/helpers/InputHelpers.sol'
+2025-02-08T00:02:51.317Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.317Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.317Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/security/ReentrancyGuard.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.318Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.318Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.318Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/interfaces/IRewardDistributor.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.318Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/interfaces/IVotingEscrow.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/interfaces/IRewardDistributor.sol'
+2025-02-08T00:02:51.320Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/openzeppelin/IERC20.sol' added as dependency of '/home/Loris/IMO/ve8020-launchpad/contracts/interfaces/IRewardDistributor.sol'
+2025-02-08T00:02:51.321Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.321Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.321Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/interfaces/IVotingEscrow.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.322Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.322Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.322Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@balancer-labs+v2-interfaces@0.4.0/node_modules/@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/IOptionalOnlyCaller.sol' will be compiled with version '0.8.18'
+2025-02-08T00:02:51.322Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2025-02-08T00:02:51.322Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2025-02-08T00:02:51.322Z hardhat:core:compilation-job File '/home/Loris/IMO/ve8020-launchpad/contracts/interfaces/IRewardFaucet.sol' will be compiled with version '0.7.6'
+2025-02-08T00:02:51.325Z hardhat:core:hre Running task compile:solidity:handle-compilation-jobs-failures
+2025-02-08T00:02:51.325Z hardhat:core:hre Running task compile:solidity:filter-compilation-jobs
+2025-02-08T00:02:51.328Z hardhat:core:tasks:compile '28' jobs were filtered out
+2025-02-08T00:02:51.328Z hardhat:core:hre Running task compile:solidity:merge-compilation-jobs
+2025-02-08T00:02:51.328Z hardhat:core:hre Running task compile:solidity:compile-jobs
+2025-02-08T00:02:51.328Z hardhat:core:hre Running compile:solidity:compile-jobs's super
+2025-02-08T00:02:51.329Z hardhat:core:tasks:compile No compilation jobs to compile
+2025-02-08T00:02:51.329Z hardhat:core:hre Running task compile:solidity:log:nothing-to-compile
+2025-02-08T00:02:51.329Z hardhat:core:hre Running task typechain:generate-types
+2025-02-08T00:02:51.336Z hardhat:core:hre Running task compile:solidity:log:compilation-result
+2025-02-08T00:02:51.336Z hardhat:core:hre Running task compile:vyper
+2025-02-08T00:02:51.339Z hardhat:core:hre Running task compile:vyper:get-source-paths
+2025-02-08T00:02:51.341Z hardhat:core:hre Running task compile:vyper:get-source-names
+2025-02-08T00:02:51.343Z hardhat:core:hre Running task compile:vyper:read-file
+2025-02-08T00:02:51.343Z hardhat:core:hre Running task compile:vyper:read-file
+2025-02-08T00:02:51.346Z hardhat:core:hre Running task compile:vyper:log:compilation-result
+2025-02-08T00:02:51.347Z hardhat:core:hre Running task compile:remove-obsolete-artifacts
+2025-02-08T00:02:51.420Z hardhat:core:tasks:run Running script scripts/deploy.ts in a subprocess so we can wait for it to complete
+2025-02-08T00:02:51.421Z hardhat:core:scripts-runner Creating Hardhat subprocess to run scripts/deploy.ts
+2025-02-08T00:02:51.726Z hardhat:core:vars:varsManager Creating a new instance of VarsManager
+2025-02-08T00:02:51.728Z hardhat:core:vars:varsManager Loading ENV variables if any
+2025-02-08T00:02:51.737Z hardhat:core:config Loading Hardhat config from /home/Loris/IMO/ve8020-launchpad/hardhat.config.ts
+2025-02-08T00:02:52.078Z hardhat:core:hre Creating HardhatRuntimeEnvironment
+TypeError: Cannot read properties of undefined (reading 'JsonRpcProvider')
+    at Object.<anonymous> (/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@nomiclabs+hardhat-ethers@2.2.3_ethers@6.13.5_hardhat@2.22.18_ts-node@10.9.2_@types+node@22.1_vopxq2vghxowk2hfroe3tayfyy/node_modules/@nomiclabs/hardhat-ethers/src/internal/ethers-provider-wrapper.ts:4:61)
+    at Module._compile (node:internal/modules/cjs/loader:1358:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+    at Object.require.extensions.<computed> [as .js] (/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/ts-node@10.9.2_@types+node@22.13.1_typescript@5.7.3/node_modules/ts-node/src/index.ts:1608:43)
+    at Module.load (node:internal/modules/cjs/loader:1208:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1024:12)
+    at Module.require (node:internal/modules/cjs/loader:1233:19)
+    at require (node:internal/modules/helpers:179:18)
+    at Object.<anonymous> (/home/Loris/IMO/ve8020-launchpad/node_modules/.pnpm/@nomiclabs+hardhat-ethers@2.2.3_ethers@6.13.5_hardhat@2.22.18_ts-node@10.9.2_@types+node@22.1_vopxq2vghxowk2hfroe3tayfyy/node_modules/@nomiclabs/hardhat-ethers/src/internal/provider-proxy.ts:7:1)
+    at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2025-02-08T00:02:52.234Z hardhat:core:scripts-runner Script scripts/deploy.ts exited with status code 1
+2025-02-08T00:02:52.235Z hardhat:core:cli Killing Hardhat after successfully running task run
