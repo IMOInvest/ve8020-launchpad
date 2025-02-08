@@ -55,7 +55,18 @@ const hhconfig: HardhatUserConfig = {
       baseMainnet: config.apiKeyBaseScan,
       // to get all supported networks
       // npx hardhat verify --list-networks
-    }
+    },
+    customChains: [
+      {
+        network: "baseMainnet",
+        chainId: 8453,
+        urls: {
+          apiURL: "https://api.basescan.org/api",
+          browserURL: "https://api.basescan.org/api"
+        }
+      }
+    ]
+    
   },
 };
 
