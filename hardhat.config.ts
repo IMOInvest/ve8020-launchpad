@@ -1,13 +1,23 @@
-import { HardhatUserConfig } from "hardhat/config";
+//import { HardhatUserConfig } from "hardhat/config";
+import { HardhatUserConfig } from "hardhat/types/config";
 import "hardhat-contract-sizer";
 import "@nomicfoundation/hardhat-toolbox";
 import "@nomiclabs/hardhat-vyper";
 import "@nomicfoundation/hardhat-foundry";
+import * as tdly from "@tenderly/hardhat-tenderly";
 
 
 const config = require("./config.js");
 
+tdly.setup({automaticVerifications: true});
+
 const hhconfig: HardhatUserConfig = {
+  tenderly: {
+    // https://docs.tenderly.co/account/projects/account-project-slug
+    project: "imo",
+    username: "hybr1d",
+  },
+
   solidity: {
     compilers: [
       {
@@ -37,6 +47,8 @@ const hhconfig: HardhatUserConfig = {
       },
     ]
   },
+
+ 
 
   defaultNetwork: "hardhat",
 
@@ -102,8 +114,8 @@ const hhconfig: HardhatUserConfig = {
         network: "baseTenderly",
         chainId: 8453,
         urls: {
-          apiURL: "https://virtual.base.rpc.tenderly.co/157a9218-5a43-4f3a-9830-33942d48d56a",
-          browserURL: "https://virtual.base.rpc.tenderly.co/157a9218-5a43-4f3a-9830-33942d48d56a"
+          apiURL: "https://virtual.base.rpc.tenderly.co/59259955-46f1-420a-be20-070aa63e609a",
+          browserURL: "https://virtual.base.rpc.tenderly.co/59259955-46f1-420a-be20-070aa63e609a"
         }
       }
     ]
