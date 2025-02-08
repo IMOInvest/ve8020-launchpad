@@ -1,4 +1,4 @@
-import { ethers, network, run } from "hardhat";
+import { ethers, network, run, tenderly } from "hardhat";
 import "@tenderly/hardhat-tenderly";
 
 require("dotenv").config();
@@ -12,6 +12,11 @@ export async function deployAndVerify(contractName: string, args: any[]) {
 
   contract = await contract.deployed();
   console.log(`${contractName} deployed to: ${contract.address}`);
+
+  await tenderly.verify({
+    name: contractName,
+    address: contract.address,
+  });
 
   const networkName = network.name;
   /*
