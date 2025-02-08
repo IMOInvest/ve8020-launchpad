@@ -13,10 +13,6 @@ const { TENDERLY_PRIVATE_VERIFICATION, TENDERLY_AUTOMATIC_VERIFICATION } =
   process.env;
 
 
-
-const privateVerification = TENDERLY_PRIVATE_VERIFICATION === "true";
-const automaticVerifications = TENDERLY_AUTOMATIC_VERIFICATION === "true";
-
 const hhconfig: HardhatUserConfig = {
   solidity: {
     compilers: [

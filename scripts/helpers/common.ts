@@ -8,10 +8,10 @@ export async function deployAndVerify(contractName: string, args: any[]) {
   const Contract = await ethers.getContractFactory(contractName);
 
   console.log('Deploying', contractName);
-  let contract = await Contract.deploy(...args);
-
-  contract = await contract.deployed();
+  const contract = await Contract.deploy(...args);
   console.log(`${contractName} deployed to: ${contract.address}`);
+
+  await contract.deployed();
 
   await tenderly.verify({
     name: contractName,
