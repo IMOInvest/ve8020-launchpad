@@ -13,4 +13,4 @@ cbor_metadata = true
  
 [etherscan]
 #                   Paste TENDERLY_ACCESS_TOKEN            Chain ID         Verifier URL: RPC_URL/verify/etherscan
-virtual_base = { key = "OWZCOggznXlbrlamjlWeuoqliVg6NA59", chain = 8453, url = "${https://virtual.base.rpc.tenderly.co/9febe1b3-4ff3-4bd2-b4d0-c301eeb15771/verify/etherscan}" }
+virtual_base = { key = "OWZCOggznXlbrlamjlWeuoqliVg6NA59", chain = 8453, url = "${https://virtual.base.rpc.tenderly.co/f16ba934-9d01-47c8-87c6-e1c8e35ef886/verify/etherscan}" }

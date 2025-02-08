@@ -4,16 +4,18 @@ import "@nomicfoundation/hardhat-toolbox";
 import "@nomiclabs/hardhat-vyper";
 import "@nomicfoundation/hardhat-foundry";
 
+import "@tenderly/hardhat-tenderly";
+/*
+import "@nomiclabs/hardhat-ethers"
+import "@nomicfoundation/hardhat-verify";
+import * as dotenv from "dotenv";
+*/
+
 
 const config = require("./config.js");
 
 const hhconfig: HardhatUserConfig = {
-  /*
-  tenderly : {
-    username: 'hybr1d',
-    project: 'Imo',
-  },
-  */
+  
   solidity: {
     compilers: [
       {
@@ -44,7 +46,7 @@ const hhconfig: HardhatUserConfig = {
     ]
   },
 
-  defaultNetwork: "hardhat",
+  defaultNetwork: "tenderly",
 
   networks: {
     hardhat: {
@@ -81,6 +83,15 @@ const hhconfig: HardhatUserConfig = {
       url: config.rpcUrl,
       accounts: config.mainnetAccounts,
     },
+
+   
+
+  },
+
+   
+  tenderly : {
+    project: 'Imo',
+    username: 'hybr1d',
   },
 
   // docs: https://www.npmjs.com/package/@nomiclabs/hardhat-etherscan
@@ -108,8 +119,8 @@ const hhconfig: HardhatUserConfig = {
         network: "baseTenderly",
         chainId: 8453,
         urls: {
-          apiURL: "https://virtual.base.rpc.tenderly.co/9febe1b3-4ff3-4bd2-b4d0-c301eeb15771/verify/etherscan",
-          browserURL: "https://virtual.base.rpc.tenderly.co/9febe1b3-4ff3-4bd2-b4d0-c301eeb15771"
+          apiURL: "https://virtual.base.rpc.tenderly.co/f16ba934-9d01-47c8-87c6-e1c8e35ef886/verify/etherscan",
+          browserURL: "https://virtual.base.rpc.tenderly.co/f16ba934-9d01-47c8-87c6-e1c8e35ef886"
         }
       }
     ]
