@@ -1,4 +1,4 @@
-import { ethers, network, run } from "hardhat";
+import { ethers, network, run , tenderly} from "hardhat";
 
 export async function deployAndVerify(contractName: string, args: any[]) {
   const Contract = await ethers.getContractFactory(contractName);
@@ -19,9 +19,15 @@ export async function deployAndVerify(contractName: string, args: any[]) {
           console.log('Waiting for 5 seconds until chain is ready for verifying')
           setTimeout(resolve, 5000);
         });
+        /*
         await run("verify:verify", {
               address: contract.address,
               constructorArguments: args,
+          });
+        */
+          await tenderly.verify({
+            address : contract.address,
+            name: contractName,
           });
           console.log("Contract has been verified");
       } catch (error: any) {

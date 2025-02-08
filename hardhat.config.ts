@@ -1,13 +1,25 @@
-import { HardhatUserConfig } from "hardhat/config";
+//import { HardhatUserConfig } from "hardhat/config";
 import "hardhat-contract-sizer";
 import "@nomicfoundation/hardhat-toolbox";
 import "@nomiclabs/hardhat-vyper";
 import "@nomicfoundation/hardhat-foundry";
+import { HardhatUserConfig } from "hardhat/types/config";
+import * as tdly from "@tenderly/hardhat-tenderly";
+
+
+tdly.setup({
+  automaticVerifications: true,
+});
 
 
 const config = require("./config.js");
 
 const hhconfig: HardhatUserConfig = {
+  tenderly: {
+    // https://docs.tenderly.co/account/projects/account-project-slug
+    project: "imo",
+    username: "hybr1d",
+  },
   solidity: {
     compilers: [
       {
@@ -43,8 +55,8 @@ const hhconfig: HardhatUserConfig = {
   networks: {
     hardhat: {
       forking: {
-        url: "https://polygon-mumbai-bor.publicnode.com",
-        enabled: false,
+        url: "https://virtual.base.rpc.tenderly.co/f6627614-30f6-46d6-964d-e4ccc19867d3",
+        enabled: true,
       },
     },
     ethereumMainnet: {
@@ -102,8 +114,8 @@ const hhconfig: HardhatUserConfig = {
         network: "baseTenderly",
         chainId: 8453,
         urls: {
-          apiURL: "https://virtual.base.rpc.tenderly.co/41fe81ae-04be-430d-8b01-6d700bf41d47/verify/etherscan",
-          browserURL: "https://virtual.base.rpc.tenderly.co/41fe81ae-04be-430d-8b01-6d700bf41d47/verify/etherscan"
+          apiURL: "https://virtual.base.rpc.tenderly.co/f6627614-30f6-46d6-964d-e4ccc19867d3/verify/etherscan",
+          browserURL: "https://virtual.base.rpc.tenderly.co/f6627614-30f6-46d6-964d-e4ccc19867d3/verify/etherscan"
         }
       }
     ]
