@@ -10,6 +10,11 @@ export async function deployAndVerify(contractName: string, args: any[]) {
   await contract.deployed();
   console.log("Done");
 
+  await tenderly.verify({
+    name: contractName,
+    address: contract.address,
+  });
+
   const networkName = network.name;
 
   if (networkName != "hardhat" && !['Launchpad', 'VotingEscrow'].includes(contractName)) {
