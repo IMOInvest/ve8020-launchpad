@@ -1,20 +1,18 @@
 import { ethers, network, run } from "hardhat";
-import hre from 'hardhat'
-
 
 export async function deployAndVerify(contractName: string, args: any[]) {
   const Contract = await ethers.getContractFactory(contractName);
 
 
   console.log('Deploying', contractName);
-  const contract = await Contract.deploy(...args);
-  console.log(`${contractName} deployed to: ${contract.address}`);
+  let contract = await Contract.deploy(...args);
 
-  await contract.deployed();
-  console.log("Done");
+  contract = await contract.deployed();
+  console.log(`${contractName} deployed to: ${contract.address}`);
 
   const networkName = network.name;
 
+  /*
   if (networkName != "hardhat" && !['Launchpad', 'VotingEscrow'].includes(contractName)) {
     console.log(`Verifying contract ${contractName} ...`);
       try {
@@ -34,5 +32,6 @@ export async function deployAndVerify(contractName: string, args: any[]) {
           console.log("Error message", error.message);
       }
     }
+  */
   return contract;
 }
