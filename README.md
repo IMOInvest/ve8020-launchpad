@@ -19,6 +19,7 @@ Clone repo and run:
 
 ```sh
 npm i
+pnpm install
 ```
 
 
@@ -27,6 +28,8 @@ Create `config.js` file like provided `config.example.js` before deployment. Upd
 To deploy VotingEscrow, RewardDistributor implementations and **Launchpad** contract run following command:  
 ```sh
 npx hardhat run ./scripts/deploy.ts --network networkName
+TENDERLY_AUTOMATIC_VERIFICATION=true pnpm exec hardhat run scripts/deploy.ts --network baseTenderly
+
 ```
 Check list of available networks in the [hardhat.config.ts](./hardhat.config.ts) file.
 
@@ -35,5 +38,6 @@ Check list of available networks in the [hardhat.config.ts](./hardhat.config.ts)
 To run tests:  
 ```sh
 npx hardhat test  
+pnpm exec hardhat test
 ```
 

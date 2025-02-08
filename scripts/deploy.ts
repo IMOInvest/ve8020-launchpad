@@ -3,8 +3,10 @@ import { deployAndVerify } from "./helpers/common";
 import chalk from "chalk";
 
 async function main() {
+  
   const [owner] = await ethers.getSigners();
   console.log('Deployer address:', owner.address);
+  
 
   // we need only implementations for the launchpad
   const votingEscrowImpl = await deployAndVerify('VotingEscrow', []);
@@ -20,30 +22,30 @@ async function main() {
   const launchpad = await deployAndVerify(
     'Launchpad',
     [
-      votingEscrowImpl.address,
-      rewardDistributorImpl.address,
-      rewardFaucetImpl.address,
+      votingEscrowImpl.getAddress(),
+      rewardDistributorImpl.getAddress(),
+      rewardFaucetImpl.getAddress(),
       balToken,
       auraToken,
       balMinter
     ]
   )
 
-  console.log('The VotingEscrow Implementation deployed at:', votingEscrowImpl.address);
-  console.log('The RewardDistributor Implementation deployed at:', rewardDistributorImpl.address);
-  console.log('The RewardFaucet Implementation deployed at:', rewardFaucetImpl.address);
+  console.log('The VotingEscrow Implementation deployed at:', votingEscrowImpl.getAddress());
+  console.log('The RewardDistributor Implementation deployed at:', rewardDistributorImpl.getAddress());
+  console.log('The RewardFaucet Implementation deployed at:', rewardFaucetImpl.getAddress());
 
-  console.log('The Launchpad deployed at:', launchpad.address);
+  console.log('The Launchpad deployed at:', launchpad.getAddress());
 
   const abi = [
     'constructor(address,address,address,address,address,address)',
   ];
-  const contract = new ethers.utils.Interface(abi);
+  const contract = new ethers.Interface(abi);
   const encodedArguments = contract.encodeDeploy(
     [
-      votingEscrowImpl.address,
-      rewardDistributorImpl.address,
-      rewardFaucetImpl.address,
+      votingEscrowImpl.getAddress(),
+      rewardDistributorImpl.getAddress(),
+      rewardFaucetImpl.getAddress(),
       balToken,
       auraToken,
       balMinter
