@@ -38,40 +38,10 @@ const hhconfig: HardhatUserConfig = {
     ]
   },
 
-  defaultNetwork: "hardhat",
+  defaultNetwork: "baseMainnet",
 
   networks: {
-    hardhat: {
-      forking: {
-        url: "https://polygon-mumbai-bor.publicnode.com",
-        enabled: false,
-      },
-    },
-    ethereumMainnet: {
-      url: config.rpcUrl,
-      accounts: config.mainnetAccounts,
-    },
-    sepolia: {
-        url: config.rpcUrl,
-        accounts: config.testnetAccounts,
-    },
-    bscMainnet: {
-        url: config.rpcUrl,
-        accounts: config.mainnetAccounts,
-    },
-    bscTestnet: {
-        url: config.rpcUrl,
-        accounts: config.testnetAccounts,
-    },
-    polygonMainnet: {
-        url: config.rpcUrl,
-        accounts: config.mainnetAccounts,
-    },
-    polygonTestnet: {
-        url: config.rpcUrl,
-        accounts: config.testnetAccounts,
-    },
-    baseTenderly : {
+    baseMainnet: {
       url: config.rpcUrl,
       accounts: config.mainnetAccounts,
     },
@@ -80,33 +50,12 @@ const hhconfig: HardhatUserConfig = {
   // docs: https://www.npmjs.com/package/@nomiclabs/hardhat-etherscan
   etherscan: {
     apiKey: {
-      mainnet: config.apiKeyEtherscan,
-      ropsten: config.apiKeyEtherscan,
-      kovan: config.apiKeyEtherscan,
-      rinkeby: config.apiKeyEtherscan,
-      goerli: config.apiKeyEtherscan,
 
-      bsc: config.apiKeyBscScan,
-      bscTestnet: config.apiKeyBscScan,
 
-      polygon: config.apiKeyPolygonScan,
-      polygonMumbai: config.apiKeyPolygonScan,
-
-      baseTenderly: config.apiKeyBaseTenderly,
-
+      baseMainnet: config.apiKeyBaseScan,
       // to get all supported networks
       // npx hardhat verify --list-networks
-    },
-    customChains: [
-      {
-        network: "baseTenderly",
-        chainId: 8453,
-        urls: {
-          apiURL: "https://virtual.base.rpc.tenderly.co/41fe81ae-04be-430d-8b01-6d700bf41d47/verify/etherscan",
-          browserURL: "https://virtual.base.rpc.tenderly.co/41fe81ae-04be-430d-8b01-6d700bf41d47/verify/etherscan"
-        }
-      }
-    ]
+    }
   },
 };
 
