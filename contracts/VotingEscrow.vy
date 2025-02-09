@@ -1008,6 +1008,9 @@ def claimAuraRewards():
     IAuraLocker(auraLocker).getReward(self.rewardReceiver, _stake) #claim Aura and Bal rewards to this contract
     balBalance: uint256 = ERC20(self.balToken).balanceOf(self)
     auraBalance: uint256 = ERC20(self.auraToken).balanceOf(self)
+    IAuraLocker(auraLocker).getReward(self, _stake) #claim Aura and Bal rewards to this contract
+    balBalance = balBalance - ERC20(self.balToken).balanceOf(self)
+    auraBalance = auraBalance - ERC20(self.auraToken).balanceOf(self)
 
     if balBalance > 0:
         # distributes rewards using rewardDistributor into current week
