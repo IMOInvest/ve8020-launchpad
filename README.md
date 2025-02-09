@@ -27,6 +27,8 @@ Create `config.js` file like provided `config.example.js` before deployment. Upd
 To deploy VotingEscrow, RewardDistributor implementations and **Launchpad** contract run following command:  
 ```sh
 npx hardhat run ./scripts/deploy.ts --network networkName
+
+ pnpm exec hardhat run scripts/deploy.ts --network baseMainnet
 ```
 Check list of available networks in the [hardhat.config.ts](./hardhat.config.ts) file.
 
@@ -35,6 +37,9 @@ Check list of available networks in the [hardhat.config.ts](./hardhat.config.ts)
 To run tests:  
 ```sh
 npx hardhat test  
+
+pnpm exec hardhat test
+
 ```
 
 test deploy with launchpad:
