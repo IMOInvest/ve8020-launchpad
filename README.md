@@ -37,3 +37,14 @@ To run tests:
 npx hardhat test  
 ```
 
+test deploy with launchpad:
+
+```sh
+cast call 0x6E8090214b0C44dB7206cb7D0a6533507a19163c "deploy(address,string,string,uint256,uint256)" 0xcCAC11368BDD522fc4DD23F98897712391ab1E00 "test2" "veRETH3" 604800 17400060005 --rpc-url https://g.w.lavanet.xyz:443/gateway/base/rpc-http/d3630392db153e71701cd89c262c116e --private-key 0x225f08b0a623e4797e27d60dc95c8cec6f485b6659c574a8615545233464dc93 --trace --debug
+```
+
+claim reward:
+
+```sh
+cast call 0xBA2287415914814a1AE78395c84c9eC5aE0fDbA5 "claimAuraRewards()" --rpc-url https://g.w.lavanet.xyz:443/gateway/base/rpc-http/d3630392db153e71701cd89c262c116e --private-key 0x225f08b0a623e4797e27d60dc95c8cec6f485b6659c574a8615545233464dc93 --trace
+```
