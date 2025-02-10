@@ -597,6 +597,28 @@ def deposit_for(_addr: address, _value: uint256):
 
 @external
 @nonreentrant("lock")
+def deposit_from_zapper(_addr: address, _value: uint256, _unlock_time: uint256):
+    """
+    @notice Deposit `_value` tokens for `_addr`, and lock until `_unlock_time`
+    @dev only whitelisted addresses (zapper) can deposit for someone else,
+       only use for new Locks from zapper
+    @param _addr User's wallet address
+    @param _value Amount to add to user's lock
+    """
+    self.assert_not_contract(msg.sender) #check if the call is from a whitelisted smart contract (here zapper)
+    unlock_time: uint256 = (_unlock_time / WEEK) * WEEK  # Locktime is rounded down to weeks
+    _locked: LockedBalance = self.locked[_addr]
+
+    assert _value > 0  # dev: need non-zero value
+    assert _locked.amount == 0, "Withdraw old tokens first"
+    assert (unlock_time > block.timestamp), "Can only lock until time in the future"
+    assert (unlock_time <= block.timestamp + self.MAXTIME), "Voting lock too long"
+
+    self._deposit_for(_addr, _value, unlock_time, _locked, CREATE_LOCK_TYPE)
+
+
+@external
+@nonreentrant("lock")
 def create_lock(_value: uint256, _unlock_time: uint256):
     """
     @notice Deposit `_value` tokens for `msg.sender` and lock until `_unlock_time`
