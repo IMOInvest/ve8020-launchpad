@@ -12,7 +12,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pragma solidity ^0.7.0;
+pragma solidity >=0.7.0 <0.9.0;
 pragma experimental ABIEncoderV2;
 
 
@@ -688,14 +688,12 @@ contract RewardDistributor is
                     // in the current week.
                     break;
                 }
-
-                int128 dt = int128(nextWeekToCheckpoint - currentUserPoint.ts);
-                uint256 userBalance = currentUserPoint.bias >
-                    currentUserPoint.slope * dt
-                    ? uint256(
-                        currentUserPoint.bias - currentUserPoint.slope * dt
-                    )
-                    : 0;
+                    int128 dt = int128(int256(nextWeekToCheckpoint) - int256(currentUserPoint.ts));
+                    uint256 userBalance = uint256(
+                        currentUserPoint.bias > currentUserPoint.slope * dt
+                            ? int256(currentUserPoint.bias - currentUserPoint.slope * dt)
+                            : int256(0)
+                    );
 
                 // User's lock has expired and they haven't relocked yet.
                 if (userBalance == 0 && userEpoch > maxUserEpoch) {
