@@ -21,13 +21,13 @@ abstract contract ABalancer is EtherUtils, ReentrancyGuard {
     address public IMOETHBPT = 0x007bb7a4bfc214DF06474E39142288E99540f2b3;
 
     // Base mainnet address balanlcer vault.
-    address public vault = 0xBA12222222228d8Ba445958a75a0704d566BF2C8;
+    address internal vault = 0xBA12222222228d8Ba445958a75a0704d566BF2C8;
     // Base mainnet id for balancer IMO-WETH pool.
-    bytes32 public poolId = 0x007bb7a4bfc214df06474e39142288e99540f2b3000200000000000000000191;
+    bytes32 internal poolId = 0x007bb7a4bfc214df06474e39142288e99540f2b3000200000000000000000191;
     // Base mainnet Address of Aura Booster 
     address public auraBooster = 0x98Ef32edd24e2c92525E59afc4475C1242a30184;
 
-    uint256 auraBoosterPid = 0;
+    uint256 internal auraBoosterPid = 0;
 
 
     /// @notice Emitted when the Balancer vault address is updated.
