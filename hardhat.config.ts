@@ -1,13 +1,25 @@
-import { HardhatUserConfig } from "hardhat/config";
+import * as dotenv from "dotenv";
+import { HardhatUserConfig } from "hardhat/types/config";
+//import { HardhatUserConfig } from "hardhat/config";
 import "hardhat-contract-sizer";
 import "@nomicfoundation/hardhat-toolbox";
 import "@nomiclabs/hardhat-vyper";
 import "@nomicfoundation/hardhat-foundry";
+import "@tenderly/hardhat-tenderly";
+
+dotenv.config();
+
+const { TENDERLY_PRIVATE_VERIFICATION, TENDERLY_AUTOMATIC_VERIFICATION } =
+  process.env;
+
+  const privateVerification = TENDERLY_PRIVATE_VERIFICATION === "true";
+const automaticVerifications = TENDERLY_AUTOMATIC_VERIFICATION === "true";
 
 
 const config = require("./config.js");
 
 const hhconfig: HardhatUserConfig = {
+  
   solidity: {
     compilers: [
       {
@@ -77,6 +89,14 @@ const hhconfig: HardhatUserConfig = {
     },
   },
 
+  tenderly : {
+    username : 'hybr1d',
+    project : 'imo',
+    privateVerification,
+
+  },
+  
+
   // docs: https://www.npmjs.com/package/@nomiclabs/hardhat-etherscan
   etherscan: {
     apiKey: {
@@ -102,8 +122,8 @@ const hhconfig: HardhatUserConfig = {
         network: "baseTenderly",
         chainId: 8453,
         urls: {
-          apiURL: "https://api.basescan.org/api",
-          browserURL: "https://api.basescan.org/api"
+          apiURL: "https://virtual.base.rpc.tenderly.co/de50e142-df66-4087-8e80-93bf7f684ff5/verify/etherscan",
+          browserURL: "https://virtual.base.rpc.tenderly.co/de50e142-df66-4087-8e80-93bf7f684ff5/verify/etherscan"
         }
       }
     ]

@@ -1,4 +1,4 @@
-import { ethers, network, run } from "hardhat";
+import { ethers, network, run, tenderly } from "hardhat";
 
 export async function deployAndVerify(contractName: string, args: any[]) {
   const Contract = await ethers.getContractFactory(contractName);
@@ -7,8 +7,18 @@ export async function deployAndVerify(contractName: string, args: any[]) {
   const contract = await Contract.deploy(...args);
   console.log(`${contractName} deployed to: ${contract.address}`);
 
-  await contract.deployed();
+  //await contract.deployed();
   console.log("Done");
+  
+
+  console.log("Verifying contract on Tenderly...", contractName, contract.address);
+
+  await tenderly.verify({
+    name: contractName,
+    address: contract.address,
+  });
+
+  /*
 
   const networkName = network.name;
 
@@ -30,5 +40,6 @@ export async function deployAndVerify(contractName: string, args: any[]) {
           console.log("Error message", error.message);
       }
     }
+      */
   return contract;
 }
