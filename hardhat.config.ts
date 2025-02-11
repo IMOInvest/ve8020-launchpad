@@ -1,11 +1,13 @@
 import * as dotenv from "dotenv";
-import { HardhatUserConfig } from "hardhat/types/config";
-//import { HardhatUserConfig } from "hardhat/config";
+//import { HardhatUserConfig } from "hardhat/types/config";
+import { HardhatUserConfig } from "hardhat/config";
 import "hardhat-contract-sizer";
 import "@nomicfoundation/hardhat-toolbox";
 import "@nomiclabs/hardhat-vyper";
 import "@nomicfoundation/hardhat-foundry";
 import "@tenderly/hardhat-tenderly";
+import "@openzeppelin/hardhat-upgrades";
+
 
 dotenv.config();
 
@@ -23,7 +25,7 @@ const hhconfig: HardhatUserConfig = {
   solidity: {
     compilers: [
       {
-        version: "0.8.18",
+        version: "0.8.20",
         settings: {
           optimizer: {
             enabled: true,
@@ -122,8 +124,8 @@ const hhconfig: HardhatUserConfig = {
         network: "baseTenderly",
         chainId: 8453,
         urls: {
-          apiURL: "https://virtual.base.rpc.tenderly.co/de50e142-df66-4087-8e80-93bf7f684ff5/verify/etherscan",
-          browserURL: "https://virtual.base.rpc.tenderly.co/de50e142-df66-4087-8e80-93bf7f684ff5/verify/etherscan"
+          apiURL: "https://virtual.base.rpc.tenderly.co/613aa0ba-ea18-46dc-8f75-c834216d081b/verify/etherscan",
+          browserURL: "https://virtual.base.rpc.tenderly.co/613aa0ba-ea18-46dc-8f75-c834216d081b/verify/etherscan"
         }
       }
     ]

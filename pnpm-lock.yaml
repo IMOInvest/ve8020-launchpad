@@ -14,12 +14,39 @@ importers:
       '@balancer-labs/v2-solidity-utils':
         specifier: ^4.0.0
         version: 4.0.0
+      '@ethersproject/providers':
+        specifier: ^5.7.2
+        version: 5.7.2
+      '@nomiclabs/hardhat-ethers':
+        specifier: ^2.0.0
+        version: 2.2.3(ethers@5.7.2)(hardhat@2.22.18(ts-node@10.9.2(@types/node@22.13.0)(typescript@5.7.3))(typescript@5.7.3))
+      '@nomiclabs/hardhat-etherscan':
+        specifier: ^3.1.8
+        version: 3.1.8(hardhat@2.22.18(ts-node@10.9.2(@types/node@22.13.0)(typescript@5.7.3))(typescript@5.7.3))
       '@nomiclabs/hardhat-vyper':
         specifier: ^3.0.4
         version: 3.0.8(hardhat@2.22.18(ts-node@10.9.2(@types/node@22.13.0)(typescript@5.7.3))(typescript@5.7.3))
       '@openzeppelin/contracts':
-        specifier: ^4.9.3
-        version: 4.9.6
+        specifier: ^5.0.2
+        version: 5.2.0
+      '@openzeppelin/contracts-upgradeable':
+        specifier: ^5.0.2
+        version: 5.2.0(@openzeppelin/contracts@5.2.0)
+      '@openzeppelin/hardhat-upgrades':
+        specifier: ^1.28.0
+        version: 1.28.0(@nomiclabs/hardhat-ethers@2.2.3(ethers@5.7.2)(hardhat@2.22.18(ts-node@10.9.2(@types/node@22.13.0)(typescript@5.7.3))(typescript@5.7.3)))(@nomiclabs/hardhat-etherscan@3.1.8(hardhat@2.22.18(ts-node@10.9.2(@types/node@22.13.0)(typescript@5.7.3))(typescript@5.7.3)))(encoding@0.1.13)(ethers@5.7.2)(hardhat@2.22.18(ts-node@10.9.2(@types/node@22.13.0)(typescript@5.7.3))(typescript@5.7.3))
+      '@openzeppelin/upgrades-core':
+        specifier: ^1.42.1
+        version: 1.42.1
+      '@tenderly/hardhat-tenderly':
+        specifier: ^1.8.0
+        version: 1.11.0(@types/node@22.13.0)(encoding@0.1.13)(hardhat@2.22.18(ts-node@10.9.2(@types/node@22.13.0)(typescript@5.7.3))(typescript@5.7.3))
+      '@typechain/ethers-v5':
+        specifier: ^10.2.1
+        version: 10.2.1(@ethersproject/abi@5.7.0)(@ethersproject/providers@5.7.2)(ethers@5.7.2)(typechain@8.3.2(typescript@5.7.3))(typescript@5.7.3)
+      '@typechain/hardhat':
+        specifier: ^6.1.6
+        version: 6.1.6(@ethersproject/abi@5.7.0)(@ethersproject/providers@5.7.2)(@typechain/ethers-v5@10.2.1(@ethersproject/abi@5.7.0)(@ethersproject/providers@5.7.2)(ethers@5.7.2)(typechain@8.3.2(typescript@5.7.3))(typescript@5.7.3))(ethers@5.7.2)(hardhat@2.22.18(ts-node@10.9.2(@types/node@22.13.0)(typescript@5.7.3))(typescript@5.7.3))(typechain@8.3.2(typescript@5.7.3))
       chalk:
         specifier: 4.1.2
         version: 4.1.2
@@ -33,9 +60,6 @@ importers:
       '@nomicfoundation/hardhat-toolbox':
         specifier: ^2.0.2
         version: 2.0.2(la57ekpuugmwwka3grsdseyo7y)
-      '@tenderly/hardhat-tenderly':
-        specifier: ^1.8.0
-        version: 1.11.0(@types/node@22.13.0)(encoding@0.1.13)(hardhat@2.22.18(ts-node@10.9.2(@types/node@22.13.0)(typescript@5.7.3))(typescript@5.7.3))
       hardhat:
         specifier: ^2.22.18
         version: 2.22.18(ts-node@10.9.2(@types/node@22.13.0)(typescript@5.7.3))(typescript@5.7.3)
@@ -388,8 +412,13 @@ packages:
     resolution: {integrity: sha512-YgsR5jCQZhVmTJvjduTOIHph0L73pK8xwMVaDY0PatySqVM9AZj93jpoXYSJqfHFxFkN9dmqTw6OiqExsS3LPw==}
     engines: {node: ^16.14.0 || >=18.0.0}
 
-  '@openzeppelin/contracts@4.9.6':
-    resolution: {integrity: sha512-xSmezSupL+y9VkHZJGDoCBpmnB2ogM13ccaYDWqJTfS3dbuHkgjuwDFUmaFauBCboQMGB/S5UqUl2y54X99BmA==}
+  '@openzeppelin/contracts-upgradeable@5.2.0':
+    resolution: {integrity: sha512-mZIu9oa4tQTlGiOJHk6D3LdJlqFqF6oNOSn6S6UVJtzfs9UsY9/dhMEbAVTwElxUtJnjpf6yA062+oBp+eOyPg==}
+    peerDependencies:
+      '@openzeppelin/contracts': 5.2.0
+
+  '@openzeppelin/contracts@5.2.0':
+    resolution: {integrity: sha512-bxjNie5z89W1Ea0NZLZluFh8PrFNn9DH8DQlujEok2yjsOlraUPKID5p1Wk3qdNbf6XkQ1Os2RvfiHrrXLHWKA==}
 
   '@openzeppelin/defender-base-client@1.54.6':
     resolution: {integrity: sha512-PTef+rMxkM5VQ7sLwLKSjp2DBakYQd661ZJiSRywx+q/nIpm3B/HYGcz5wPZCA5O/QcEP6TatXXDoeMwimbcnw==}
@@ -3010,7 +3039,11 @@ snapshots:
 
   '@npmcli/redact@2.0.1': {}
 
-  '@openzeppelin/contracts@4.9.6': {}
+  '@openzeppelin/contracts-upgradeable@5.2.0(@openzeppelin/contracts@5.2.0)':
+    dependencies:
+      '@openzeppelin/contracts': 5.2.0
+
+  '@openzeppelin/contracts@5.2.0': {}
 
   '@openzeppelin/defender-base-client@1.54.6(debug@4.4.0)(encoding@0.1.13)':
     dependencies:

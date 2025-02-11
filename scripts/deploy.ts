@@ -1,5 +1,5 @@
 import { ethers } from "hardhat";
-import { deployAndVerify } from "./helpers/common";
+import { deployAndVerify, deployTransparentUpgradeableProxy } from "./helpers/common";
 import chalk from "chalk";
 
 async function main() {
@@ -7,9 +7,14 @@ async function main() {
   console.log('Deployer address:', owner.address);
 
   // we need only implementations for the launchpad
-  const votingEscrowImpl = await deployAndVerify('VotingEscrow', []);
+  const votingEscrowImpl = await deployTransparentUpgradeableProxy('VotingEscrow', []);
+
+  //Not proxy
   const rewardDistributorImpl = await deployAndVerify('RewardDistributor', []);
   const rewardFaucetImpl = await deployAndVerify('RewardFaucet', []);
+
+  
+  
 
   // @todo
   const balToken = "0x4158734d47fc9692176b5085e0f52ee0da5d47f1";

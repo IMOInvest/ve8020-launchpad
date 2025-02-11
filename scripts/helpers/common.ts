@@ -1,13 +1,17 @@
-import { ethers, network, run, tenderly } from "hardhat";
+import { ethers, network, run, tenderly, upgrades } from "hardhat";
+import {
+  getImplementationAddress,
+  getImplementationAddressFromBeacon,
+} from "@openzeppelin/upgrades-core";
 
 export async function deployAndVerify(contractName: string, args: any[]) {
   const Contract = await ethers.getContractFactory(contractName);
 
   console.log('Deploying', contractName);
-  const contract = await Contract.deploy(...args);
+  let contract = await Contract.deploy(...args);
   console.log(`${contractName} deployed to: ${contract.address}`);
 
-  //await contract.deployed();
+  contract = await contract.deployed();
   console.log("Done");
   
 
@@ -42,4 +46,25 @@ export async function deployAndVerify(contractName: string, args: any[]) {
     }
       */
   return contract;
+}
+
+
+export async function deployTransparentUpgradeableProxy(contractName: string, args: any[]): Promise<any> {
+  console.log(
+    "\n---------------\n🖖🏽[ethers] Deploying TransparentUpgradeableProxy with VotingLogic as implementation on Tenderly.",
+  );
+
+  const VotingLogic = await ethers.getContractFactory(contractName);
+  let proxyContract = await upgrades.deployProxy(VotingLogic);
+  proxyContract = await proxyContract.deployed();
+
+  const proxyAddress = proxyContract.address;
+
+  console.log("VotingLogic proxy deployed to:", proxyAddress);
+  console.log(
+    "VotingLogic impl deployed to:",
+    await getImplementationAddress(ethers.provider, proxyAddress),
+  );
+
+  return proxyContract;
 }

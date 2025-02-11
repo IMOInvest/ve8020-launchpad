@@ -6,6 +6,7 @@ import {IVault}  from "./interfaces/IVault.sol";
 import {ABalancer} from "./utils/ABalancer.sol";
 import {IOdosRouterV2} from "./interfaces/IOdosRouterv2.sol";
 import {RewardDistributor} from "./RewardDistributor.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 interface IVotingEscrow {
     function create_lock(uint256 _value, uint256 _unlock_time) external;
@@ -34,7 +35,7 @@ contract Zapper is ABalancer {
      * @param _votingEscrow The address of the VotingEscrow contract.
      * @param _odosRouter The address of the OdosRouterV2 contract.
      */
-    constructor(address _token, address _votingEscrow, address payable _odosRouter, address _rewardDistributor, address _balToken, address _auraToken) {
+    constructor(address _token, address _votingEscrow, address payable _odosRouter, address _rewardDistributor, address _balToken, address _auraToken) Ownable(msg.sender) {
         token = IERC20(_token);
         votingEscrow = IVotingEscrow(_votingEscrow);
         odosRouter = IOdosRouterV2(_odosRouter);

@@ -3,7 +3,7 @@ pragma solidity >=0.7.0 <0.9.0;
 
 import {Errors} from "../libs/Errors.sol";
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import {SafeTransferLib} from "../libs/SafeTransferLib.sol";
 import {IVault} from "../interfaces/IVault.sol";
 import {EtherUtils} from "../libs/EthersUtils.sol";
