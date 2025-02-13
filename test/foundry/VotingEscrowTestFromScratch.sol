@@ -29,7 +29,7 @@ contract VotingEscrowTestFromScratch is Test {
     VyperDeployer vyperDeployer;
     VyperDeployerLegacy vyperDeployerLegacy;
 
-    uint256 MAXLOCKTIME = 315360000; // 10 years
+    uint256 MAXLOCKTIME = 135691200; //Some time, cannot be 10 years (too long)
     uint256 RewardDistributorStartTime = block.timestamp + 14 days;
     address rewardReceiverAddress;
 
@@ -118,7 +118,15 @@ contract VotingEscrowTestFromScratch is Test {
         //string  symbol = "veIMOTEST";
 
         //Deploy VE from launchpad
-        (address NewVotingEscrowAddress, address NewRewardDistributorAddress, address NewRewardFaucetAddress) = launchpadDeployed.deploy(address(bptToken),"IMO staking Test","veIMOTEST",MAXLOCKTIME,RewardDistributorStartTime,owner,owner,rewardReceiverAddress);
+        (address NewVotingEscrowAddress, address NewRewardDistributorAddress, address NewRewardFaucetAddress) = launchpadDeployed.deploy(
+            address(bptToken),
+            "IMO staking Test",
+            "veIMOTEST",
+            MAXLOCKTIME,
+            RewardDistributorStartTime,
+            owner,
+            owner,
+            rewardReceiverAddress);
 
 
         //(address NewVotingEscrowAddress, address NewRewardDistributorAddress, address NewRewardFaucetAddress) = launchpad.deploy(address(0));

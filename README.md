@@ -35,5 +35,6 @@ Check list of available networks in the [hardhat.config.ts](./hardhat.config.ts)
 To run tests:  
 ```sh
 npx hardhat test  
+or forge test --rpc-url https://g.w.lavanet.xyz:443/gateway/base/rpc-http/d3630392db153e71701cd89c262c116e --mc VotingEscrowTestFromScratch -vvvv --mt testClaimAuraRewards
 ```
 
