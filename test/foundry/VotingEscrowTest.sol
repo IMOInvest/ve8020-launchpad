@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "forge-std/Test.sol";
-import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {TestToken} from "../../contracts/mock/Token.sol";
 import {BPTToken} from  "../../contracts/mock/BptToken.sol";
 import {RewardDistributor} from  "../../contracts/RewardDistributor.sol";
@@ -55,6 +55,7 @@ The Launchpad deployed at: 0xe152eF55C48441656Df1E70Ba040244F3165e6b0
     address auraTokenAddress = 0x1509706a6c66CA549ff0cB464de88231DDBe213B; // Replace with actual address
     address odosRouterAddress = 0x19cEeAd7105607Cd444F5ad10dd51356436095a1; // Replace with actual address
     address rewardReceiverAddress = 0x897Ec8F290331cfb0916F57b064e0A78Eab0e4A5;
+    address imoToken = 0x5A7a2bf9fFae199f088B25837DcD7E115CF8E1bb; // Replace with actual add
 
     function setUp() public {
         owner = address(this);
@@ -79,7 +80,8 @@ The Launchpad deployed at: 0xe152eF55C48441656Df1E70Ba040244F3165e6b0
             payable(odosRouterAddress),
             address(rewardDistributor),
             address(balToken),
-            address(auraToken)
+            address(auraToken),
+            address(imoToken)
         );
 
         // Mint tokens
@@ -131,19 +133,22 @@ The Launchpad deployed at: 0xe152eF55C48441656Df1E70Ba040244F3165e6b0
     // Fuzzing tests for Zapper functions
 
     function testFuzz_ZapAndCreateLockFor(uint256 amount, uint256 unlockTime) public {
-        vm.assume(amount > 0 && amount <= user1Amount);
+        vm.assume(amount > 0 && amount <= 1 ether);
         vm.assume(unlockTime > block.timestamp);
 
+        uint256 imoScalingFactor  = 4000;
+
         // Mint tokens to user1
-        bptToken.mint(user1, amount);
+        deal(imoToken, user1, amount*imoScalingFactor);
+        deal(user1, amount);
 
         // Approve Zapper contract to spend tokens
         vm.prank(user1);
-        bptToken.approve(address(zapper), amount);
+        IERC20(imoToken).approve(address(zapper), amount);
 
         // Call zapAndCreateLockFor
         vm.prank(user1);
-        zapper.zapAndCreateLockFor(amount, unlockTime, user1);
+        zapper.zapAndLockForNative{value: amount}(amount, unlockTime, user1);
 
         // Check that the lock was created
         assertTrue(votingEscrow.locked__end(user1) > block.timestamp, "Lock was not created");
@@ -160,7 +165,7 @@ The Launchpad deployed at: 0xe152eF55C48441656Df1E70Ba040244F3165e6b0
         vm.prank(user1);
         bptToken.approve(address(zapper), amount);
         vm.prank(user1);
-        zapper.zapAndCreateLockFor(amount, unlockTime, user1);
+        zapper.zapAndLockFor(amount, unlockTime, user1);
 
         // Mint more tokens to user1
         bptToken.mint(user1, amount);

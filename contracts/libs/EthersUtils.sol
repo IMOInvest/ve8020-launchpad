@@ -5,6 +5,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {SafeTransferLib} from "./SafeTransferLib.sol";
 import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 
+
 /// @title EtherUtils
 /// @author centonze.eth
 /// @dev Utility contract providing functions to manage WETH allowances.
@@ -13,7 +14,7 @@ abstract contract EtherUtils is Ownable2Step {
     using SafeTransferLib for ERC20;
 
     // The WETH token address on Base mainnet.
-    address internal constant WETH = 0x4200000000000000000000000000000000000006;
+    address payable internal constant WETH = 0x4200000000000000000000000000000000000006;
 
     /// @dev Internal function to maximize the WETH allowance for a target address.
     /// @param target The address for which the WETH allowance will be set to max.

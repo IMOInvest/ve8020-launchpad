@@ -7,7 +7,7 @@ import {ABalancer} from "./utils/ABalancer.sol";
 import {IOdosRouterV2} from "./interfaces/IOdosRouterv2.sol";
 import {RewardDistributor} from "./RewardDistributor.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
+import {IWETH} from "./interfaces/IWETH.sol";
 interface IVotingEscrow {
     function create_lock(uint256 _value, uint256 _unlock_time) external;
     function deposit_for(address _addr, uint256 _value) external;
@@ -25,6 +25,7 @@ contract Zapper is ABalancer {
     IERC20 public token;
     IERC20 public BAL;
     IERC20 public AURA;
+    IERC20 public IMO;
     IVotingEscrow public votingEscrow;
     IOdosRouterV2 public odosRouter;
     RewardDistributor public rewardDistributor;
@@ -35,13 +36,14 @@ contract Zapper is ABalancer {
      * @param _votingEscrow The address of the VotingEscrow contract.
      * @param _odosRouter The address of the OdosRouterV2 contract.
      */
-    constructor(address _token, address _votingEscrow, address payable _odosRouter, address _rewardDistributor, address _balToken, address _auraToken) Ownable(msg.sender) {
+    constructor(address _token, address _votingEscrow, address payable _odosRouter, address _rewardDistributor, address _balToken, address _auraToken, address _imoToken) Ownable(msg.sender) {
         token = IERC20(_token);
         votingEscrow = IVotingEscrow(_votingEscrow);
         odosRouter = IOdosRouterV2(_odosRouter);
         rewardDistributor = RewardDistributor(_rewardDistributor);
         BAL = IERC20(_balToken);
         AURA = IERC20(_auraToken);
+        IMO = IERC20(_imoToken);
     }
 
     /**
@@ -54,37 +56,121 @@ contract Zapper is ABalancer {
     }
 
     /**
-     * @notice Transfers tokens from the user and creates a new lock in the VotingEscrow contract.
-     * @param _amount The amount of tokens to lock.
+     * @notice Transfers IMO and or ETH tokens from the user and creates a new lock in the VotingEscrow contract.
+     * @param _ImoAmount The amount of tokens to lock.
      * @param _unlock_time The timestamp at which the lock will expire.
      */
-    function zapAndCreateLockFor(uint256 _amount, uint256 _unlock_time, address _recipient) public {
+    function zapAndLockFor(uint256 _ImoAmount,uint256 _EthAmount, uint256 _unlock_time, address _recipient) public {
         require(msg.sender == _recipient || msg.sender == address(this), "Only Zapper or the recipient can call this function");
-        // Transfer tokens from the user to this contract
-        token.safeTransferFrom(_recipient, address(this), _amount);
+        require(_ImoAmount >0  || _EthAmount > 0, "Amounts are zero");
+        require (!hasLock(_recipient), "lock already exists for the user");
+
+        if(_ImoAmount > 0) {
+            // Transfer IMO tokens from the user to this contract
+            IMO.safeTransferFrom(_recipient, address(this), _ImoAmount);
+        }
+
+         if(_EthAmount > 0) {
+            // Transfer WETH tokens from the user to this contract
+            IERC20(WETH).safeTransferFrom(_recipient, address(this), _EthAmount);
+        }
+        // Get the balance of BPT before deposit in this contract
+        uint256 bptBalance = IERC20(IMOETHBPT).balanceOf(address(this));
+
+        //Approve WETH and IMO to the Balancer vault
+        IERC20(WETH).safeApprove(address(vault), _EthAmount);
+        IERC20(IMO).safeApprove(address(vault), _ImoAmount);
+
+        //Join IMO Pool
+        joinImoPool(_EthAmount, _ImoAmount, address(this), address(this));
+
+        //Get New BPT Balance after adding WETH and IMO to the pool
+        bptBalance = IERC20(IMOETHBPT).balanceOf(address(this)) - bptBalance;
+        uint256 auraBptBalance = IERC20(IMOETHAURABPT).balanceOf(address(this));
+
+        //Join Aura Pool
+        joinAuraPool(bptBalance);
+
+        //Get New AURA BPT Balance after adding BPT to the pool
+        auraBptBalance = IERC20(IMOETHAURABPT).balanceOf(address(this)) - auraBptBalance;
 
         // Approve the voting escrow contract to spend the tokens
-        token.safeApprove(address(votingEscrow), _amount);
+        token.safeApprove(address(votingEscrow), auraBptBalance);
 
         // Call the deposit_from_zapper function on the voting escrow contract
-        votingEscrow.deposit_from_zapper(_recipient, _amount, _unlock_time);
+        votingEscrow.deposit_from_zapper(_recipient, auraBptBalance, _unlock_time);
     }
 
     /**
-     * @notice Transfers tokens from the user and adds them to an existing lock in the VotingEscrow contract.
-     * @param _amount The amount of tokens to add to the existing lock.
+     * @notice Transfers IMO and or ETH tokens from the user and creates a new lock in the VotingEscrow contract.
+     * @param _ImoAmount The amount of tokens to lock.
+     * @param _unlock_time The timestamp at which the lock will expire.
      */
-    function zapAndDepositForLock(uint256 _amount, address _recipient) public {
+    function zapAndLockForNative(uint256 _ImoAmount, uint256 _unlock_time, address _recipient) external payable {
         require(msg.sender == _recipient || msg.sender == address(this), "Only Zapper or the recipient can call this function");
-        require(hasLock(_recipient), "No existing lock found for the user");
-        // Transfer tokens from the user to this contract
-        token.safeTransferFrom(_recipient, address(this), _amount);
+        require(_ImoAmount >0  || msg.value > 0, "Amounts are zero");
+        require (!hasLock(_recipient), "lock already exists for the user");
+
+        // Convert ETH to WETH
+        IWETH(WETH).deposit{value: msg.value}();
+
+        //Call the zapAndLockFor function
+        zapAndLockFor(_ImoAmount, msg.value, _unlock_time, _recipient);
+    }
+
+    /**
+     * @notice Transfers IMO and ETH tokens from the user and adds them to an existing lock in the VotingEscrow contract.
+     * @param _ImoAmount The amount of tokens to add to the existing lock.
+     */
+    function zapAndDepositForLock(uint256 _ImoAmount, uint256 _EthAmount, address _recipient) public {
+        require(msg.sender == _recipient || msg.sender == address(this), "Only Zapper or the recipient can call this function");
+        require (hasLock(_recipient), "No lock exists for the user");
+        require(_ImoAmount >0  || _EthAmount > 0, "Amounts are zero");
+        if(_ImoAmount > 0) {
+            // Transfer IMO tokens from the user to this contract
+            IMO.safeTransferFrom(msg.sender, address(this), _ImoAmount);
+        }
+        if(_EthAmount > 0) {
+            // Transfer WETH tokens from the user to this contract
+            IERC20(WETH).safeTransferFrom(msg.sender, address(this), _EthAmount);
+        }
+        // Get the balance of BPT before deposit in this contract
+        uint256 bptBalance = IERC20(IMOETHBPT).balanceOf(address(this));
+
+        //Approve WETH and IMO to the Balancer vault
+        IERC20(WETH).safeApprove(address(vault), _EthAmount);
+        IERC20(IMO).safeApprove(address(vault), _ImoAmount);
+
+        //Join IMO Pool
+        joinImoPool(_EthAmount, _ImoAmount, address(this), address(this));
+
+        //Get New BPT Balance after adding WETH and IMO to the pool
+        bptBalance = IERC20(IMOETHBPT).balanceOf(address(this)) - bptBalance;
+        uint256 auraBptBalance = IERC20(IMOETHAURABPT).balanceOf(address(this));
+
+        //Join Aura Pool
+        joinAuraPool(bptBalance);
+
+        //Get New AURA BPT Balance after adding BPT to the pool
+        auraBptBalance = IERC20(IMOETHAURABPT).balanceOf(address(this)) - auraBptBalance;
 
         // Approve the voting escrow contract to spend the tokens
-        token.safeApprove(address(votingEscrow), _amount);
+        token.safeApprove(address(votingEscrow), auraBptBalance);
 
         // Call the deposit_for function on the voting escrow contract
-        votingEscrow.deposit_for(_recipient, _amount);
+        votingEscrow.deposit_for(_recipient, auraBptBalance);
+    }
+
+    function zapAndDepositForLockNative(uint256 _ImoAmount,address _recipient) external payable {
+        require(msg.sender == _recipient || msg.sender == address(this), "Only Zapper or the recipient can call this function");
+        require (hasLock(_recipient), "No lock exists for the user");
+        require(_ImoAmount >0  || msg.value > 0, "Amounts are zero");
+       
+        // Convert ETH to WETH
+        IWETH(WETH).deposit{value: msg.value}();
+
+        //Call the zapAndDepositForLock function
+        zapAndDepositForLock(_ImoAmount, msg.value, _recipient);
     }
 
     /**
@@ -123,11 +209,13 @@ contract Zapper is ABalancer {
         joinAuraPool(BPTBalance);
 
         //Stake to Voting Escrow
-        if (hasLock(_recipient)) {
+        /*
+        if hasLock(_recipient) {
             zapAndDepositForLock(BPTBalance, _recipient);
         } else {
             zapAndCreateLockFor(BPTBalance, _unlock_time, _recipient);
         }
+        */
     }
 
     /**

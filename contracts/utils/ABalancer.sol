@@ -15,14 +15,16 @@ import {IAuraBooster} from "../interfaces/IAuraBooster.sol";
 abstract contract ABalancer is EtherUtils, ReentrancyGuard {
     using SafeTransferLib for ERC20;
 
-    // Base mainnet address of IMO.
-    address internal IMO = 	0x5A7a2bf9fFae199f088B25837DcD7E115CF8E1bb;
+    // Base mainnet address of imoAddress.
+    address internal imoAddress = 	0x5A7a2bf9fFae199f088B25837DcD7E115CF8E1bb;
 
     address public IMOETHBPT = 0x007bb7a4bfc214DF06474E39142288E99540f2b3;
 
+    address public IMOETHAURABPT = 0x007bb7a4bfc214DF06474E39142288E99540f2b3; //TODO replace with actual aura pool address
+
     // Base mainnet address balanlcer vault.
     address internal vault = 0xBA12222222228d8Ba445958a75a0704d566BF2C8;
-    // Base mainnet id for balancer IMO-WETH pool.
+    // Base mainnet id for balancer imoAddress-WETH pool.
     bytes32 internal poolId = 0x007bb7a4bfc214df06474e39142288e99540f2b3000200000000000000000191;
     // Base mainnet Address of Aura Booster 
     address public auraBooster = 0x98Ef32edd24e2c92525E59afc4475C1242a30184;
@@ -41,10 +43,10 @@ abstract contract ABalancer is EtherUtils, ReentrancyGuard {
     event SetImoAddress(address newAddress);
 
 
-     /// @notice Sets a new address for the IMO address.
-    /// @param _newAddress The address of the new IMO Token.
+     /// @notice Sets a new address for the imoAddress address.
+    /// @param _newAddress The address of the new imoAddress Token.
     function setImoAddress(address _newAddress) external onlyOwner {
-        IMO = _newAddress;
+        imoAddress = _newAddress;
         emit SetImoAddress(_newAddress);
     }
 
@@ -79,7 +81,7 @@ abstract contract ABalancer is EtherUtils, ReentrancyGuard {
     function joinImoPool(uint256 EthAmount, uint256 ImoAmount, address sender, address receiver) public {
         address[] memory assets = new address[](2);
         assets[0] = WETH;  // 0x0f1D1b7abAeC1Df25f2C4Db751686FC5233f6D3f
-        assets[1] = IMO; // 0x4200000000000000000000000000000000000006
+        assets[1] = imoAddress; // 0x4200000000000000000000000000000000000006
 
         uint256[] memory maxAmountsIn = new uint256[](2);
         maxAmountsIn[0] = EthAmount;
@@ -105,7 +107,7 @@ abstract contract ABalancer is EtherUtils, ReentrancyGuard {
 
     function joinImoPoolOnlyWeth(uint256 wethAmount, address sender, address receiver) public {
         address[] memory assets = new address[](2);
-        assets[0] = IMO;  // 0x0f1D1b7abAeC1Df25f2C4Db751686FC5233f6D3f
+        assets[0] = imoAddress;  // 0x0f1D1b7abAeC1Df25f2C4Db751686FC5233f6D3f
         assets[1] = WETH; // 0x4200000000000000000000000000000000000006
 
         uint256[] memory maxAmountsIn = new uint256[](2);
@@ -145,7 +147,7 @@ abstract contract ABalancer is EtherUtils, ReentrancyGuard {
         (address[] memory tokens, uint256[] memory balances, ) = IVault(vault).getPoolTokens(poolId);
 
         for (uint256 i = 0; i < tokens.length; i++) {
-            if (tokens[i] == IMO) {
+            if (tokens[i] == imoAddress) {
                 return balances[i] * BPTbalanceofUser / totalBPTBalance;
             }
         }
@@ -154,7 +156,7 @@ abstract contract ABalancer is EtherUtils, ReentrancyGuard {
 
     }
 
-    // Get the IMO balance of the user in the IMO-ETH pool (hardcoded from the poolId)
+    // Get the imoAddress balance of the user in the imoAddress-ETH pool (hardcoded from the poolId)
     function getUserImoBalanceFromPool(uint256 BPTbalanceofUser) public view returns (uint256) {
         return getUserImoBalance(msg.sender, address(IMOETHBPT), BPTbalanceofUser);
     }
