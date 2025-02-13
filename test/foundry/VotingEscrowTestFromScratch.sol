@@ -78,7 +78,7 @@ contract VotingEscrowTestFromScratch is Test {
         // Deploy from scracth
         VyperDeployer deployer = new VyperDeployer();
         //VyperDeployerLegacy deployerLegacy = new VyperDeployerLegacy();  
-        address votingEscrowAddress = deployer.deployContract('../../contracts/', 'VotingEscrow', args);
+        address votingEscrowAddress = deployer.deployContract('contracts/', 'VotingEscrow', args);
         //address votingEscrowAddress = deployerLegacy.deployContract('VotingEscrow', args);
 
         
@@ -109,7 +109,7 @@ contract VotingEscrowTestFromScratch is Test {
         );
 
         //setup launchpad contract
-        address launchpad = deployer.deployContract('../../contracts/', 'Launchpad', launchpadArgs);
+        address launchpad = deployer.deployContract('contracts/', 'Launchpad', launchpadArgs);
         //address launchpad = deployerLegacy.deployContract('Launchpad', launchpadArgs);
 
         ILaunchpad launchpadDeployed = ILaunchpad(launchpad);
