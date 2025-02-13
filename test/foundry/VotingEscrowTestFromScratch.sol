@@ -27,6 +27,10 @@ contract VotingEscrowTest is Test {
     Zapper zapper; // Zapper contract
     VyperDeployer vyperDeployer;
 
+    uint256 MAXLOCKTIME = 315360000; // 10 years
+    uint256 RewardDistributorStartTime = block.timestamp + 14 days;
+    address rewardReceiverAddress;
+
     address owner;
     address creator;
     address user1;
@@ -47,7 +51,7 @@ contract VotingEscrowTest is Test {
     address balMinterAddress = 0x0c5538098EBe88175078972F514C9e101D325D4F; // Replace with actual address
     address auraTokenAddress = 0x1509706a6c66CA549ff0cB464de88231DDBe213B; // Replace with actual address
     address odosRouterAddress = 0x19cEeAd7105607Cd444F5ad10dd51356436095a1; // Replace with actual address
-    address rewardReceiverAddress = 0x897Ec8F290331cfb0916F57b064e0A78Eab0e4A5;
+    //rewardReceiverAddressaddress rewardReceiverAddress = 0x897Ec8F290331cfb0916F57b064e0A78Eab0e4A5;
     
 
     function setUp() public {
@@ -55,10 +59,11 @@ contract VotingEscrowTest is Test {
         creator = address(0x1);
         user1 = address(0x2);
         user2 = address(0x3);
+        rewardReceiverAddress = address(0x4);
 
         address zeroAddress = address(0);
 
-        bytes args = abi.encode(
+        bytes memory args = abi.encode(
             zeroAddress,
             zeroAddress,
             zeroAddress,
@@ -107,13 +112,19 @@ contract VotingEscrowTest is Test {
         address launchpad = deployer.deployContract('test/foundry', 'Launchpad', args);
         ILaunchpad launchpad = ILaunchpad(launchpad);
 
+        string memory name = "IMO staking Test";
+        string memory symbol = "veIMOTEST";
+
         //Deploy VE from launchpad
         (address votingEscrowAddress, address rewardDistributorAddress, address rewardFaucetAddress) = launchpad.deploy(
-            address(votingEscrow),
-            address(rewardDistributor),
-            address(rewardFaucet),
-            address(balToken),
-            address(auraToken)
+            address(BPTToken),
+            name,
+            symbol,
+            MAXLOCKTIME,
+            RewardDistributorStartTime,
+            owner, 
+            owner,
+            rewardReceiverAddress
         );
 
         votingEscrow = IVotingEscrow(votingEscrowAddress);
@@ -147,8 +158,8 @@ contract VotingEscrowTest is Test {
 
     function testClaimAuraRewards() public {
         // Store initial balances
-        uint256 initialBalBalance = balToken.balanceOf(votingEscrowAddress);
-        uint256 initialAuraBalance = auraToken.balanceOf(votingEscrowAddress);
+        uint256 initialBalBalance = balToken.balanceOf(address(votingEscrow));
+        uint256 initialAuraBalance = auraToken.balanceOf(address(votingEscrow));
         uint256 user1Amount = 10 ether;
 
         vm.prank(user1, user1);
@@ -164,8 +175,8 @@ contract VotingEscrowTest is Test {
         votingEscrow.claimAuraRewards();
 
         // Check final balances
-        uint256 finalBalBalance = balToken.balanceOf(votingEscrowAddress);
-        uint256 finalAuraBalance = auraToken.balanceOf(votingEscrowAddress);
+        uint256 finalBalBalance = balToken.balanceOf(address(votingEscrow));
+        uint256 finalAuraBalance = auraToken.balanceOf(address(votingEscrow));
 
         console.log("Initial BAL balance: ", initialBalBalance);
         console.log("Final BAL balance: ", finalBalBalance);
