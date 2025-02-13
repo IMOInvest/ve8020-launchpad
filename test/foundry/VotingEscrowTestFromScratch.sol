@@ -161,9 +161,10 @@ contract VotingEscrowTestFromScratch is Test {
     }
 
     function testClaimAuraRewards() public {
+        address receiver = votingEscrow.rewardReceiver();
         // Store initial balances
-        uint256 initialBalBalance = balToken.balanceOf(address(votingEscrow));
-        uint256 initialAuraBalance = auraToken.balanceOf(address(votingEscrow));
+        uint256 initialBalBalance = balToken.balanceOf(receiver);
+        uint256 initialAuraBalance = auraToken.balanceOf(receiver);
         uint256 user1Amount = 10 ether;
 
         vm.prank(user1, user1);
@@ -175,12 +176,11 @@ contract VotingEscrowTestFromScratch is Test {
         vm.warp(block.timestamp +  365 days);
         // Call claimAuraRewards
 
-        vm.prank(owner, owner);
         votingEscrow.claimAuraRewards();
 
         // Check final balances
-        uint256 finalBalBalance = balToken.balanceOf(address(votingEscrow));
-        uint256 finalAuraBalance = auraToken.balanceOf(address(votingEscrow));
+        uint256 finalBalBalance = balToken.balanceOf(receiver);
+        uint256 finalAuraBalance = auraToken.balanceOf(receiver);
 
         console.log("Initial BAL balance: ", initialBalBalance);
         console.log("Final BAL balance: ", finalBalBalance);
@@ -188,8 +188,8 @@ contract VotingEscrowTestFromScratch is Test {
         console.log("Final Aura balance: ", finalAuraBalance);
 
         // Assert that balances have increased
-        //assertGt(finalBalBalance, initialBalBalance, "BAL balance did not increase");
-        //assertGt(finalAuraBalance, initialAuraBalance, "Aura balance did not increase");
+        assertGt(finalBalBalance, initialBalBalance, "BAL balance did not increase");
+        assertGt(finalAuraBalance, initialAuraBalance, "Aura balance did not increase");
     }
 
     // Fuzzing tests for Zapper functions
