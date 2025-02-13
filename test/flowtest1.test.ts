@@ -89,6 +89,8 @@ describe("Launchpad flow test", function () {
 
     bptFactory = await ethers.getContractFactory('BPTToken');
     bptToken = (await bptFactory.deploy()) as BPTToken;
+    console.log('BPTToken', bptToken.address);
+
 
     veFactory = await ethers.getContractFactory('VotingEscrow');
     votingEscrowImpl = (await veFactory.deploy()) as VotingEscrow;

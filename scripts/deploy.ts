@@ -1,5 +1,5 @@
 import { ethers } from "hardhat";
-import { deployAndVerify, deployTransparentUpgradeableProxy } from "./helpers/common";
+import { deployAndVerify } from "./helpers/common";
 import chalk from "chalk";
 
 async function main() {
@@ -7,19 +7,39 @@ async function main() {
   console.log('Deployer address:', owner.address);
 
   // we need only implementations for the launchpad
-  const votingEscrowImpl = await deployTransparentUpgradeableProxy('VotingEscrow', []);
+  //const votingEscrowImpl = await deployTransparentUpgradeableProxy('VotingEscrow', []);
+
+  const votingEscrowImpl = await deployAndVerify('VotingEscrow', []);
+
 
   //Not proxy
   const rewardDistributorImpl = await deployAndVerify('RewardDistributor', []);
   const rewardFaucetImpl = await deployAndVerify('RewardFaucet', []);
 
-  
-  
+  //test
+  /*
+  const votingEscrowImplAddress = "0x0c5538098EBe88175078972F514C9e101D325D4F";
+  const rewardDistributorImplAddress = "0x0c5538098EBe88175078972F514C9e101D325D4F";
+  const rewardFaucetImplAddress = "0x0c5538098EBe88175078972F514C9e101D325D4F";
+  */
 
   // @todo
   const balToken = "0x4158734d47fc9692176b5085e0f52ee0da5d47f1";
   const balMinter = "0x0c5538098EBe88175078972F514C9e101D325D4F";
   const auraToken = '0x1509706a6c66ca549ff0cb464de88231ddbe213b';
+  /*
+  // deploying launchpad
+  const launchpad = await deployAndVerify(
+    'Launchpad',
+    [
+      votingEscrowImplAddress,
+      rewardDistributorImplAddress,
+      rewardFaucetImplAddress,
+      balToken,
+      auraToken,
+      balMinter
+    ]
+  )*/
   
   // deploying launchpad
   const launchpad = await deployAndVerify(
@@ -33,6 +53,7 @@ async function main() {
       balMinter
     ]
   )
+    
 
   console.log('The VotingEscrow Implementation deployed at:', votingEscrowImpl.address);
   console.log('The RewardDistributor Implementation deployed at:', rewardDistributorImpl.address);
@@ -54,12 +75,17 @@ async function main() {
       balMinter
     ]
   );
+  
 
   console.log(
     chalk.green.bold('\n❗️ Use following Constructor Arguments (ABI-encoded) for Launchpad verification:'),
   );
   console.log(encodedArguments.slice(2));
+
+
+  
 }
+  
 
 main().catch((error) => {
   console.error(error);
