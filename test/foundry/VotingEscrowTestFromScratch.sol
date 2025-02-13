@@ -13,9 +13,10 @@ import {AuraToken} from "../../contracts/mock/AuraToken.sol"; // Assuming you ha
 import {Zapper} from "../../contracts/Zapper.sol"; // Import the Zapper contract
 import {IVotingEscrow} from "../../contracts/interfaces/IVotingEscrow.sol"; // Import the VotingEscrow interface
 import {ILaunchpad} from "../../contracts/interfaces/ILaunchpad.sol";
-import {VyperDeployer} from "./VyperDeployer.sol";
+import {VyperDeployer} from "../../lib/utils/VyperDeployer.sol";
+import {VyperDeployerLegacy} from "./VyperDeployerLegacy.sol";
 
-contract VotingEscrowTest is Test {
+contract VotingEscrowTestFromScratch is Test {
     IVotingEscrow votingEscrow;
     TestToken rewardToken;
     BPTToken bptToken;
@@ -26,6 +27,7 @@ contract VotingEscrowTest is Test {
     AuraToken auraToken; // Mock AuraToken
     Zapper zapper; // Zapper contract
     VyperDeployer vyperDeployer;
+    VyperDeployerLegacy vyperDeployerLegacy;
 
     uint256 MAXLOCKTIME = 315360000; // 10 years
     uint256 RewardDistributorStartTime = block.timestamp + 14 days;
@@ -75,15 +77,16 @@ contract VotingEscrowTest is Test {
 
         // Deploy from scracth
         VyperDeployer deployer = new VyperDeployer();
-        address votingEscrowAddress = deployer.deployContract('test/foundry', 'VotingEscrow', args);
+        //VyperDeployerLegacy deployerLegacy = new VyperDeployerLegacy();  
+        address votingEscrowAddress = deployer.deployContract('../../contracts/', 'VotingEscrow', args);
+        //address votingEscrowAddress = deployerLegacy.deployContract('VotingEscrow', args);
+
         
         rewardToken = TestToken(rewardTokenAddress);
         bptToken = BPTToken(bptTokenAddress);
-        /*
+        
         votingEscrow = IVotingEscrow(votingEscrowAddress);
-        rewardDistributor = RewardDistributor(rewardDistributorAddress);
-        rewardFaucet = RewardFaucet(rewardFaucetAddress);
-        */
+
         balToken = BalancerToken(balTokenAddress);
         balMinter = BalancerMinter(balMinterAddress);
         auraToken = AuraToken(auraTokenAddress);
@@ -91,46 +94,39 @@ contract VotingEscrowTest is Test {
         // Deploy new contracts
 
         // Set up the reward distributor
-        RewardDistributor rewardDistributor = new RewardDistributor(
-            address(rewardToken),
-            address(bptToken),
-            address(votingEscrow),
-            address(rewardFaucet),
-            address(balToken),
-            address(balMinter),
-            address(auraToken)
-        );
+        RewardDistributor rewardDistributor = new RewardDistributor();
 
         //set up Reward Faucet
-        RewardFaucet rewardFaucet = new RewardFaucet(
-            address(rewardToken),
+        RewardFaucet rewardFaucet = new RewardFaucet();
+
+        bytes memory launchpadArgs = abi.encode(
+            address(votingEscrow),
             address(rewardDistributor),
-            address(rewardReceiverAddress)
+            address(rewardFaucet),
+            address(balToken),
+            address(auraToken),
+            address(balMinter)
         );
 
         //setup launchpad contract
-        address launchpad = deployer.deployContract('test/foundry', 'Launchpad', args);
-        ILaunchpad launchpad = ILaunchpad(launchpad);
+        address launchpad = deployer.deployContract('../../contracts/', 'Launchpad', launchpadArgs);
+        //address launchpad = deployerLegacy.deployContract('Launchpad', launchpadArgs);
 
-        string memory name = "IMO staking Test";
-        string memory symbol = "veIMOTEST";
+        ILaunchpad launchpadDeployed = ILaunchpad(launchpad);
+
+        //string  name = "IMO staking Test";
+        //string  symbol = "veIMOTEST";
 
         //Deploy VE from launchpad
-        (address votingEscrowAddress, address rewardDistributorAddress, address rewardFaucetAddress) = launchpad.deploy(
-            address(BPTToken),
-            name,
-            symbol,
-            MAXLOCKTIME,
-            RewardDistributorStartTime,
-            owner, 
-            owner,
-            rewardReceiverAddress
-        );
+        (address NewVotingEscrowAddress, address NewRewardDistributorAddress, address NewRewardFaucetAddress) = launchpadDeployed.deploy(address(bptToken),"IMO staking Test","veIMOTEST",MAXLOCKTIME,RewardDistributorStartTime,owner,owner,rewardReceiverAddress);
 
-        votingEscrow = IVotingEscrow(votingEscrowAddress);
-        rewardDistributor = RewardDistributor(rewardDistributorAddress);
-        rewardFaucet = RewardFaucet(rewardFaucetAddress);
 
+        //(address NewVotingEscrowAddress, address NewRewardDistributorAddress, address NewRewardFaucetAddress) = launchpad.deploy(address(0));
+        
+        votingEscrow = IVotingEscrow(NewVotingEscrowAddress);
+        rewardDistributor = RewardDistributor(NewRewardDistributorAddress);
+        rewardFaucet = RewardFaucet(NewRewardFaucetAddress);
+        
 
         // Create new Zapper contract
         zapper = new Zapper(
