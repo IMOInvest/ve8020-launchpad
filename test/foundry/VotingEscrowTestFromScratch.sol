@@ -15,6 +15,7 @@ import {IVotingEscrow} from "../../contracts/interfaces/IVotingEscrow.sol"; // I
 import {ILaunchpad} from "../../contracts/interfaces/ILaunchpad.sol";
 import {VyperDeployer} from "../../lib/utils/VyperDeployer.sol";
 import {VyperDeployerLegacy} from "./VyperDeployerLegacy.sol";
+import {SmartWalletWhitelist} from "../../contracts/utils/SmartWalletWhitelist.sol";
 
 contract VotingEscrowTestFromScratch is Test {
     IVotingEscrow votingEscrow;
@@ -28,6 +29,7 @@ contract VotingEscrowTestFromScratch is Test {
     Zapper zapper; // Zapper contract
     VyperDeployer vyperDeployer;
     VyperDeployerLegacy vyperDeployerLegacy;
+    SmartWalletWhitelist smartWalletWhitelist;
 
     uint256 MAXLOCKTIME = 135691200; //Some time, cannot be 10 years (too long)
     uint256 RewardDistributorStartTime = block.timestamp + 14 days;
@@ -46,7 +48,9 @@ contract VotingEscrowTestFromScratch is Test {
     
     //address votingEscrowAddress = 0xC12Cc45e4689e41F1f9E743E896e2BF4915361f7; // Replace with actual address
     address rewardTokenAddress = 0x5A7a2bf9fFae199f088B25837DcD7E115CF8E1bb; // Replace with actual address
-    address bptTokenAddress = 	0xcCAC11368BDD522fc4DD23F98897712391ab1E00; // Replace with actual address
+    //address bptTokenAddress = 	0xcCAC11368BDD522fc4DD23F98897712391ab1E00; // Aura eth bpt
+    address bptTokenAddress = 	0x007bb7a4bfc214DF06474E39142288E99540f2b3; // IMO eth bpt
+
     //address rewardDistributorAddress = 0x7d659A8d16e0C726aFDbAf76C2034fc73141e2d8; // Replace with actual address
     //address rewardFaucetAddress = 0xCC599051522E9Fcd055fa982c825a043d6455905; // Replace with actual address
     address balTokenAddress = 0x4158734D47Fc9692176B5085E0F52ee0Da5d47F1; // Replace with actual address
@@ -60,8 +64,8 @@ contract VotingEscrowTestFromScratch is Test {
 
     function setUp() public {
         owner = address(this);
-        creator = address(0x1);
-        user1 = address(0x2);
+        creator = address(0x897Ec8F290331cfb0916F57b064e0A78Eab0e4A5); //EOA
+        user1 = address(0x7BD93fb2b1339761220e4167329De5C8671B93e1); //EOA
         user2 = address(0x3);
         rewardReceiverAddress = address(0x4);
 
@@ -149,6 +153,26 @@ contract VotingEscrowTestFromScratch is Test {
             address(imoAddress)
         );
 
+        //Setup wallet checker
+        smartWalletWhitelist = new SmartWalletWhitelist(owner);
+
+        vm.prank(owner);
+        smartWalletWhitelist.setChecker(address(smartWalletWhitelist));
+
+        vm.prank(owner);
+        smartWalletWhitelist.approveWallet(address(zapper));
+
+
+
+
+        //set wallet checker for VE
+        vm.prank(owner);
+        votingEscrow.commit_smart_wallet_checker(address(smartWalletWhitelist));
+
+        vm.prank(owner);
+        votingEscrow.apply_smart_wallet_checker();
+        
+
         // Mint tokens
         deal(rewardTokenAddress, creator, 100 ether);
         deal(balTokenAddress, creator, 100 ether);
@@ -198,7 +222,7 @@ contract VotingEscrowTestFromScratch is Test {
     // Fuzzing tests for Zapper functions
 
     function testFuzz_ZapAndCreateLockFor(uint256 amount) public {
-        vm.assume(amount > 0 && amount <= 1 ether);
+        amount = bound(amount, 1e6 ether, 1e9 ether);
 
         uint256 unlockTime = block.timestamp + 365 days;
         uint256 imoScalingFactor  = 4000;
@@ -210,14 +234,20 @@ contract VotingEscrowTestFromScratch is Test {
         deal(user1, amount);
 
         // Approve Zapper contract to spend tokens
-        vm.prank(user1);
+        vm.prank(user1, user1);
         IERC20(imoAddress).approve(address(zapper), imoAmount);
 
-        vm.prank(user1);
+        vm.prank(user1, user1);
         IERC20(wETHAddress).approve(address(zapper), amount);
 
+        bool isAllowed = smartWalletWhitelist.check(address(zapper));
+        console.log("Is Zapper allowed: ", isAllowed);
+
+        vm.prank(user1, user1);
+        IERC20(bptTokenAddress).approve(address(votingEscrow), type(uint256).max);
+
         // Call zapAndCreateLockFor
-        vm.prank(user1);
+        vm.prank(user1, user1);
         zapper.zapAndLockForNative{value: amount}(imoAmount, unlockTime, user1);
 
         // Check that the lock was created
@@ -238,6 +268,9 @@ contract VotingEscrowTestFromScratch is Test {
         // Approve Zapper contract to spend tokens
         vm.prank(user1);
         IERC20(imoAddress).approve(address(zapper), imoAmount);
+
+        bool isAllowed = smartWalletWhitelist.check(address(zapper));
+        console.log("Is Zapper allowed: ", isAllowed);
 
         vm.prank(user1);
         zapper.zapAndLockForNative{value: amount}(imoAmount, unlockTime, user1);

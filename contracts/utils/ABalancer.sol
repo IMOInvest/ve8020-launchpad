@@ -18,7 +18,7 @@ abstract contract ABalancer is EtherUtils, ReentrancyGuard {
     // Base mainnet address of imoAddress.
     address internal imoAddress = 	0x5A7a2bf9fFae199f088B25837DcD7E115CF8E1bb;
 
-    address public IMOETHBPT = 0x007bb7a4bfc214DF06474E39142288E99540f2b3;
+    address public IMOETHBPT = 0x007bb7a4bfc214DF06474E39142288E99540f2b3; //IMO ETH BPT
 
     address public IMOETHAURABPT = 0x007bb7a4bfc214DF06474E39142288E99540f2b3; //TODO replace with actual aura pool address
 
@@ -97,7 +97,7 @@ abstract contract ABalancer is EtherUtils, ReentrancyGuard {
             assets: assets,
             maxAmountsIn: maxAmountsIn,
             userData: userData,
-            fromInternalBalance: true
+            fromInternalBalance: false
         });
 
     

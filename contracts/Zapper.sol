@@ -85,11 +85,19 @@ contract Zapper is ABalancer {
         IERC20(IMO).safeApprove(address(vault), _ImoAmount);
 
         //Join IMO Pool
-        joinImoPool(_EthAmount, _ImoAmount, address(this), address(this));
+        joinImoPool(_EthAmount, _ImoAmount, address(this),address(this));
 
         //Get New BPT Balance after adding WETH and IMO to the pool
         bptBalance = IERC20(IMOETHBPT).balanceOf(address(this)) - bptBalance;
-        uint256 auraBptBalance = IERC20(IMOETHAURABPT).balanceOf(address(this));
+
+        //Transfer BPT to the recipient
+        IERC20(IMOETHBPT).safeTransfer(_recipient, bptBalance);
+        //uint256 auraBptBalance = IERC20(IMOETHAURABPT).balanceOf(address(this));
+
+
+        //Test only, raw BPT
+        votingEscrow.deposit_from_zapper(_recipient, bptBalance, _unlock_time);
+
         /*
 
         //Join Aura Pool
