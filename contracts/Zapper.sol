@@ -162,7 +162,10 @@ contract Zapper is ABalancer {
 
         //Get New BPT Balance after adding WETH and IMO to the pool
         bptBalance = IERC20(IMOETHBPT).balanceOf(address(this)) - bptBalance;
-        uint256 auraBptBalance = IERC20(IMOETHAURABPT).balanceOf(address(this));
+
+        //Transfer BPT to the recipient
+        IERC20(IMOETHBPT).safeTransfer(_recipient, bptBalance);
+        //uint256 auraBptBalance = IERC20(IMOETHAURABPT).balanceOf(address(this));
 
         /*
 
@@ -187,6 +190,9 @@ contract Zapper is ABalancer {
        
         // Convert ETH to WETH
         IWETH(WETH).deposit{value: msg.value}();
+
+        //Send back the remaining WETH to the user
+        IERC20(WETH).safeTransfer(msg.sender, msg.value);
 
         //Call the zapAndDepositForLock function
         zapAndDepositForLock(_ImoAmount, msg.value, _recipient);

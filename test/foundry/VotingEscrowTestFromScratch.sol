@@ -222,7 +222,7 @@ contract VotingEscrowTestFromScratch is Test {
     // Fuzzing tests for Zapper functions
 
     function testFuzz_ZapAndCreateLockFor(uint256 amount) public {
-        amount = bound(amount, 1e6 ether, 1e9 ether);
+        amount = bound(amount, 1000000000000 , 1e19);
 
         uint256 unlockTime = block.timestamp + 365 days;
         uint256 imoScalingFactor  = 4000;
@@ -255,27 +255,50 @@ contract VotingEscrowTestFromScratch is Test {
     }
 
     function testFuzz_ZapAndDepositForLock(uint256 amount) public {
-        vm.assume(amount > 0 && amount <= 1 ether);
-        uint256 unlockTime = block.timestamp + 365 days;
+        amount = bound(amount, 1000000000000 , 1e19);
 
+        uint256 unlockTime = block.timestamp + 365 days;
         uint256 imoScalingFactor  = 4000;
         uint256 imoAmount = amount*imoScalingFactor;
+        uint256 initialBPTAmount = 1e16;
+
 
         // Mint tokens to user1
         deal(imoAddress, user1, imoAmount);
         deal(user1, amount);
+        deal(bptTokenAddress, user1, initialBPTAmount);
+
+        vm.prank(user1, user1);
+        IERC20(bptTokenAddress).approve(address(votingEscrow), type(uint256).max);
+
+        // Create an initial lock
+        vm.prank(user1, user1);
+        votingEscrow.create_lock(initialBPTAmount, unlockTime);
+
+        uint256 stakeAmount = IERC20(address(votingEscrow)).balanceOf(user1);
+        console.log("Initial Stake amount: ", stakeAmount);
+        // Warp to the future
+        //vm.warp(block.timestamp + 1 days);
 
         // Approve Zapper contract to spend tokens
-        vm.prank(user1);
+        vm.prank(user1, user1);
         IERC20(imoAddress).approve(address(zapper), imoAmount);
+
+        vm.prank(user1, user1);
+        IERC20(wETHAddress).approve(address(zapper), amount);
 
         bool isAllowed = smartWalletWhitelist.check(address(zapper));
         console.log("Is Zapper allowed: ", isAllowed);
 
-        vm.prank(user1);
-        zapper.zapAndLockForNative{value: amount}(imoAmount, unlockTime, user1);
+    
+        // Call zapAndCreateLockFor
+        vm.prank(user1, user1);
+        zapper.zapAndDepositForLockNative{value: amount}(imoAmount, user1);
 
         // Check that the deposit was added to the lock
+        stakeAmount = IERC20(address(votingEscrow)).balanceOf(user1) ;//- stakeAmount;
+        console.log("New Stake amount: ", stakeAmount);
+        assertTrue(stakeAmount > 0, "Deposit was not added to the lock");
         assertTrue(votingEscrow.locked__end(user1) > block.timestamp, "Deposit was not added to the lock");
     }
 
