@@ -14,7 +14,7 @@ abstract contract EtherUtils is Ownable2Step {
     using SafeTransferLib for ERC20;
 
     // The WETH token address on Base mainnet.
-    address payable internal constant WETH = 0x4200000000000000000000000000000000000006;
+    address payable internal constant WETH = payable(0x4200000000000000000000000000000000000006);
 
     /// @dev Internal function to maximize the WETH allowance for a target address.
     /// @param target The address for which the WETH allowance will be set to max.

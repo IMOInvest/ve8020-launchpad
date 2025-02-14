@@ -132,55 +132,7 @@ The Launchpad deployed at: 0xe152eF55C48441656Df1E70Ba040244F3165e6b0
 
     // Fuzzing tests for Zapper functions
 
-    function testFuzz_ZapAndCreateLockFor(uint256 amount, uint256 unlockTime) public {
-        vm.assume(amount > 0 && amount <= 1 ether);
-        vm.assume(unlockTime > block.timestamp);
-
-        uint256 imoScalingFactor  = 4000;
-
-        // Mint tokens to user1
-        deal(imoToken, user1, amount*imoScalingFactor);
-        deal(user1, amount);
-
-        // Approve Zapper contract to spend tokens
-        vm.prank(user1);
-        IERC20(imoToken).approve(address(zapper), amount);
-
-        // Call zapAndCreateLockFor
-        vm.prank(user1);
-        zapper.zapAndLockForNative{value: amount}(amount, unlockTime, user1);
-
-        // Check that the lock was created
-        assertTrue(votingEscrow.locked__end(user1) > block.timestamp, "Lock was not created");
-    }
-
-    function testFuzz_ZapAndDepositForLock(uint256 amount) public {
-        vm.assume(amount > 0 && amount <= user1Amount);
-
-        // Mint tokens to user1
-        bptToken.mint(user1, amount);
-
-        // Create an initial lock for user1
-        uint256 unlockTime = block.timestamp + 7 days;
-        vm.prank(user1);
-        bptToken.approve(address(zapper), amount);
-        vm.prank(user1);
-        zapper.zapAndLockFor(amount, unlockTime, user1);
-
-        // Mint more tokens to user1
-        bptToken.mint(user1, amount);
-
-        // Approve Zapper contract to spend tokens
-        vm.prank(user1);
-        bptToken.approve(address(zapper), amount);
-
-        // Call zapAndDepositForLock
-        vm.prank(user1);
-        zapper.zapAndDepositForLock(amount, user1);
-
-        // Check that the deposit was added to the lock
-        assertTrue(votingEscrow.locked__end(user1) > block.timestamp, "Deposit was not added to the lock");
-    }
+    
 
     function testFuzz_ZapAssetsToWethAndStake(bytes calldata swapData, uint256 unlockTime) public {
         vm.assume(unlockTime > block.timestamp);

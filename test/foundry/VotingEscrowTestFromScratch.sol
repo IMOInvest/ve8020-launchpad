@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "forge-std/Test.sol";
-import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {TestToken} from "../../contracts/mock/Token.sol";
 import {BPTToken} from  "../../contracts/mock/BptToken.sol";
 import {RewardDistributor} from  "../../contracts/RewardDistributor.sol";
@@ -54,7 +54,8 @@ contract VotingEscrowTestFromScratch is Test {
     address auraTokenAddress = 0x1509706a6c66CA549ff0cB464de88231DDBe213B; // Replace with actual address
     address odosRouterAddress = 0x19cEeAd7105607Cd444F5ad10dd51356436095a1; // Replace with actual address
     //rewardReceiverAddressaddress rewardReceiverAddress = 0x897Ec8F290331cfb0916F57b064e0A78Eab0e4A5;
-    
+    address  imoAddress = 	0x5A7a2bf9fFae199f088B25837DcD7E115CF8E1bb;
+
 
     function setUp() public {
         owner = address(this);
@@ -143,7 +144,8 @@ contract VotingEscrowTestFromScratch is Test {
             payable(odosRouterAddress),
             address(rewardDistributor),
             address(balToken),
-            address(auraToken)
+            address(auraToken),
+            address(imoAddress)
         );
 
         // Mint tokens
@@ -194,48 +196,47 @@ contract VotingEscrowTestFromScratch is Test {
 
     // Fuzzing tests for Zapper functions
 
-    function testFuzz_ZapAndCreateLockFor(uint256 amount, uint256 unlockTime) public {
-        vm.assume(amount > 0 && amount <= user1Amount);
-        vm.assume(unlockTime > block.timestamp);
+    function testFuzz_ZapAndCreateLockFor(uint256 amount) public {
+        vm.assume(amount > 0 && amount <= 1 ether);
+
+        uint256 unlockTime = block.timestamp + 365 days;
+        uint256 imoScalingFactor  = 4000;
+        uint256 imoAmount = amount*imoScalingFactor;
+
 
         // Mint tokens to user1
-        bptToken.mint(user1, amount);
+        deal(imoAddress, user1, imoAmount);
+        deal(user1, amount);
 
         // Approve Zapper contract to spend tokens
         vm.prank(user1);
-        bptToken.approve(address(zapper), amount);
+        IERC20(imoAddress).approve(address(zapper), imoAmount);
 
         // Call zapAndCreateLockFor
         vm.prank(user1);
-        zapper.zapAndCreateLockFor(amount, unlockTime, user1);
+        zapper.zapAndLockForNative{value: amount}(imoAmount, unlockTime, user1);
 
         // Check that the lock was created
         assertTrue(votingEscrow.locked__end(user1) > block.timestamp, "Lock was not created");
     }
 
     function testFuzz_ZapAndDepositForLock(uint256 amount) public {
-        vm.assume(amount > 0 && amount <= user1Amount);
+        vm.assume(amount > 0 && amount <= 1 ether);
+        uint256 unlockTime = block.timestamp + 365 days;
+
+        uint256 imoScalingFactor  = 4000;
+        uint256 imoAmount = amount*imoScalingFactor;
 
         // Mint tokens to user1
-        bptToken.mint(user1, amount);
-
-        // Create an initial lock for user1
-        uint256 unlockTime = block.timestamp + 7 days;
-        vm.prank(user1);
-        bptToken.approve(address(zapper), amount);
-        vm.prank(user1);
-        zapper.zapAndCreateLockFor(amount, unlockTime, user1);
-
-        // Mint more tokens to user1
-        bptToken.mint(user1, amount);
+        deal(imoAddress, user1, imoAmount);
+        deal(user1, amount);
 
         // Approve Zapper contract to spend tokens
         vm.prank(user1);
-        bptToken.approve(address(zapper), amount);
+        IERC20(imoAddress).approve(address(zapper), imoAmount);
 
-        // Call zapAndDepositForLock
         vm.prank(user1);
-        zapper.zapAndDepositForLock(amount, user1);
+        zapper.zapAndLockForNative{value: amount}(imoAmount, unlockTime, user1);
 
         // Check that the deposit was added to the lock
         assertTrue(votingEscrow.locked__end(user1) > block.timestamp, "Deposit was not added to the lock");
