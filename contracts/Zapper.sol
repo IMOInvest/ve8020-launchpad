@@ -30,6 +30,8 @@ contract Zapper is ABalancer {
     IOdosRouterV2 public odosRouter;
     RewardDistributor public rewardDistributor;
 
+    event Test(address indexed user, uint256 amount);
+
     /**
      * @notice Initializes the Zapper contract with the specified token and VotingEscrow contract addresses.
      * @param _token The address of the ERC20 token to be used for locking.
@@ -62,17 +64,18 @@ contract Zapper is ABalancer {
      */
     function zapAndLockFor(uint256 _ImoAmount,uint256 _EthAmount, uint256 _unlock_time, address _recipient) public {
         require(msg.sender == _recipient || msg.sender == address(this), "Only Zapper or the recipient can call this function");
-        require(_ImoAmount >0  || _EthAmount > 0, "Amounts are zero");
         require (!hasLock(_recipient), "lock already exists for the user");
 
-        if(_ImoAmount > 0) {
+        emit Test(msg.sender, _ImoAmount);
+
+        if(_ImoAmount > 0 && msg.sender != address(this)) {
             // Transfer IMO tokens from the user to this contract
-            IMO.safeTransferFrom(_recipient, address(this), _ImoAmount);
+            IMO.safeTransferFrom(msg.sender, address(this), _ImoAmount);
         }
 
-         if(_EthAmount > 0) {
+         if(_EthAmount > 0 && msg.sender != address(this)) {
             // Transfer WETH tokens from the user to this contract
-            IERC20(WETH).safeTransferFrom(_recipient, address(this), _EthAmount);
+            IERC20(WETH).safeTransferFrom(msg.sender, address(this), _EthAmount);
         }
         // Get the balance of BPT before deposit in this contract
         uint256 bptBalance = IERC20(IMOETHBPT).balanceOf(address(this));
@@ -87,6 +90,7 @@ contract Zapper is ABalancer {
         //Get New BPT Balance after adding WETH and IMO to the pool
         bptBalance = IERC20(IMOETHBPT).balanceOf(address(this)) - bptBalance;
         uint256 auraBptBalance = IERC20(IMOETHAURABPT).balanceOf(address(this));
+        /*
 
         //Join Aura Pool
         joinAuraPool(bptBalance);
@@ -99,6 +103,7 @@ contract Zapper is ABalancer {
 
         // Call the deposit_from_zapper function on the voting escrow contract
         votingEscrow.deposit_from_zapper(_recipient, auraBptBalance, _unlock_time);
+        */
     }
 
     /**
@@ -113,6 +118,9 @@ contract Zapper is ABalancer {
 
         // Convert ETH to WETH
         IWETH(WETH).deposit{value: msg.value}();
+        //Send back the remaining WETH to the user
+        IERC20(WETH).safeTransfer(msg.sender, msg.value);
+
 
         //Call the zapAndLockFor function
         zapAndLockFor(_ImoAmount, msg.value, _unlock_time, _recipient);
@@ -125,7 +133,7 @@ contract Zapper is ABalancer {
     function zapAndDepositForLock(uint256 _ImoAmount, uint256 _EthAmount, address _recipient) public {
         require(msg.sender == _recipient || msg.sender == address(this), "Only Zapper or the recipient can call this function");
         require (hasLock(_recipient), "No lock exists for the user");
-        require(_ImoAmount >0  || _EthAmount > 0, "Amounts are zero");
+
         if(_ImoAmount > 0) {
             // Transfer IMO tokens from the user to this contract
             IMO.safeTransferFrom(msg.sender, address(this), _ImoAmount);
@@ -148,6 +156,8 @@ contract Zapper is ABalancer {
         bptBalance = IERC20(IMOETHBPT).balanceOf(address(this)) - bptBalance;
         uint256 auraBptBalance = IERC20(IMOETHAURABPT).balanceOf(address(this));
 
+        /*
+
         //Join Aura Pool
         joinAuraPool(bptBalance);
 
@@ -159,6 +169,7 @@ contract Zapper is ABalancer {
 
         // Call the deposit_for function on the voting escrow contract
         votingEscrow.deposit_for(_recipient, auraBptBalance);
+        */
     }
 
     function zapAndDepositForLockNative(uint256 _ImoAmount,address _recipient) external payable {
