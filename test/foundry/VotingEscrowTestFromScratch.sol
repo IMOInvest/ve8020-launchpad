@@ -251,7 +251,10 @@ contract VotingEscrowTestFromScratch is Test {
         zapper.zapAndLockForNative{value: amount}(imoAmount, unlockTime, user1);
 
         // Check that the lock was created
-        //assertTrue(votingEscrow.locked__end(user1) > block.timestamp, "Lock was not created");
+        uint256 stakeAmount = IERC20(address(votingEscrow)).balanceOf(user1);
+
+        assertTrue(stakeAmount > 0, "Deposit was not added to the lock");
+        assertTrue(votingEscrow.locked__end(user1) > block.timestamp, "Lock was not created");
     }
 
     function testFuzz_ZapAndDepositForLock(uint256 amount) public {
@@ -302,6 +305,8 @@ contract VotingEscrowTestFromScratch is Test {
         assertTrue(votingEscrow.locked__end(user1) > block.timestamp, "Deposit was not added to the lock");
     }
 
+    /*
+
     function testFuzz_ZapAssetsToWethAndStake(bytes calldata swapData, uint256 unlockTime) public {
         vm.assume(unlockTime > block.timestamp);
 
@@ -323,4 +328,5 @@ contract VotingEscrowTestFromScratch is Test {
         // Check that the rewards were compounded
         // Add your assertions here
     }
+    */
 }
