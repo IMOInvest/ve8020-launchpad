@@ -178,8 +178,8 @@ contract VotingEscrowTestFromScratch is Test {
         deal(balTokenAddress, creator, 100 ether);
         deal(auraTokenAddress, creator, 100 ether);
 
-        deal(bptTokenAddress, user1, 100 ether);
-        deal(bptTokenAddress, user2, 100 ether);
+        //deal(bptTokenAddress, user1, 100 ether);
+        //deal(bptTokenAddress, user2, 100 ether);
 
         // Initialize contracts if needed (assuming they are already initialized)
         // votingEscrow.initialize(...);
