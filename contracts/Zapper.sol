@@ -36,7 +36,7 @@ contract Zapper is ABalancer {
      * @notice Initializes the Zapper contract with the specified token and VotingEscrow contract addresses.
      * @param _token The address of the ERC20 token to be used for locking.
      * @param _votingEscrow The address of the VotingEscrow contract.
-     * @param _odosRouter The address of the OdosRouterV2 contract.
+     * @param _odosRouter The address of the odos router contract.
      */
     constructor(address _token, address _votingEscrow, address payable _odosRouter, address _rewardDistributor, address _balToken, address _auraToken, address _imoToken) Ownable(msg.sender) {
         token = IERC20(_token);
@@ -94,9 +94,14 @@ contract Zapper is ABalancer {
         IERC20(IMOETHBPT).safeTransfer(_recipient, bptBalance);
         //uint256 auraBptBalance = IERC20(IMOETHAURABPT).balanceOf(address(this));
 
+        //test without added function
+        //votingEscrow.create_lock(bptBalance, _unlock_time);
+
 
         //Test only, raw BPT
         votingEscrow.deposit_from_zapper(_recipient, bptBalance, _unlock_time);
+
+
 
         /*
 

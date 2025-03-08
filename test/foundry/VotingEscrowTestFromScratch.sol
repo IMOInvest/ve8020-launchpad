@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import "forge-std/Test.sol";
-import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {TestToken} from "../../contracts/mock/Token.sol";
 import {BPTToken} from  "../../contracts/mock/BptToken.sol";
 import {RewardDistributor} from  "../../contracts/RewardDistributor.sol";
@@ -10,12 +9,12 @@ import {RewardFaucet} from "../../contracts/RewardFaucet.sol";
 import {BalancerToken} from "../../contracts/mock/BalancerToken.sol";
 import {BalancerMinter} from "../../contracts/mock/BalancerMinter.sol";
 import {AuraToken} from "../../contracts/mock/AuraToken.sol"; // Assuming you have a mock AuraToken contract
-import {Zapper} from "../../contracts/Zapper.sol"; // Import the Zapper contract
 import {IVotingEscrow} from "../../contracts/interfaces/IVotingEscrow.sol"; // Import the VotingEscrow interface
 import {ILaunchpad} from "../../contracts/interfaces/ILaunchpad.sol";
 import {VyperDeployer} from "../../lib/utils/VyperDeployer.sol";
 import {VyperDeployerLegacy} from "./VyperDeployerLegacy.sol";
 import {SmartWalletWhitelist} from "../../contracts/utils/SmartWalletWhitelist.sol";
+import "../../contracts/RewardPoolDepositWrapper.sol";
 
 contract VotingEscrowTestFromScratch is Test {
     IVotingEscrow votingEscrow;
@@ -26,10 +25,10 @@ contract VotingEscrowTestFromScratch is Test {
     BalancerToken balToken;
     BalancerMinter balMinter;
     AuraToken auraToken; // Mock AuraToken
-    Zapper zapper; // Zapper contract
     VyperDeployer vyperDeployer;
     VyperDeployerLegacy vyperDeployerLegacy;
     SmartWalletWhitelist smartWalletWhitelist;
+    RewardPoolDepositWrapper rewardPoolDepositWrapper; //Zapper for aura BPT into lock
 
     uint256 MAXLOCKTIME = 135691200; //Some time, cannot be 10 years (too long)
     uint256 RewardDistributorStartTime = block.timestamp + 14 days;
@@ -60,6 +59,9 @@ contract VotingEscrowTestFromScratch is Test {
     //rewardReceiverAddressaddress rewardReceiverAddress = 0x897Ec8F290331cfb0916F57b064e0A78Eab0e4A5;
     address  imoAddress = 	0x5A7a2bf9fFae199f088B25837DcD7E115CF8E1bb;
     address wETHAddress = 0x4200000000000000000000000000000000000006;
+    address  vault = 0xBA12222222228d8Ba445958a75a0704d566BF2C8; //Balancer Base Vault Address
+    address _rewardPoolAddress = 0x0Ec191f765C0a1611aB3A4cdB839A66D2033e476;
+    bytes32 _balancerPoolId = 0x007bb7a4bfc214df06474e39142288e99540f2b3000200000000000000000191;
 
 
     function setUp() public {
@@ -142,15 +144,11 @@ contract VotingEscrowTestFromScratch is Test {
         rewardFaucet = RewardFaucet(NewRewardFaucetAddress);
         
 
-        // Create new Zapper contract
-        zapper = new Zapper(
-            address(bptToken),
-            address(votingEscrow),
-            payable(odosRouterAddress),
-            address(rewardDistributor),
-            address(balToken),
-            address(auraToken),
-            address(imoAddress)
+        // Create new RewardPoolDepositor contract
+
+        rewardPoolDepositWrapper = new RewardPoolDepositWrapper(
+            vault, 
+            address(votingEscrow)
         );
 
         //Setup wallet checker
@@ -160,7 +158,7 @@ contract VotingEscrowTestFromScratch is Test {
         smartWalletWhitelist.setChecker(address(smartWalletWhitelist));
 
         vm.prank(owner);
-        smartWalletWhitelist.approveWallet(address(zapper));
+        smartWalletWhitelist.approveWallet(address(rewardPoolDepositWrapper));
 
 
 
@@ -235,20 +233,41 @@ contract VotingEscrowTestFromScratch is Test {
 
         // Approve Zapper contract to spend tokens
         vm.prank(user1, user1);
-        IERC20(imoAddress).approve(address(zapper), imoAmount);
+        IERC20(imoAddress).approve(address(rewardPoolDepositWrapper), imoAmount);
 
         vm.prank(user1, user1);
-        IERC20(wETHAddress).approve(address(zapper), amount);
+        IERC20(wETHAddress).approve(address(rewardPoolDepositWrapper), amount);
 
-        bool isAllowed = smartWalletWhitelist.check(address(zapper));
-        console.log("Is Zapper allowed: ", isAllowed);
+        bool isAllowed = smartWalletWhitelist.check(address(rewardPoolDepositWrapper));
+        console.log("Is Pool Depositor allowed: ", isAllowed);
 
         vm.prank(user1, user1);
         IERC20(bptTokenAddress).approve(address(votingEscrow), type(uint256).max);
 
+        IAsset[] memory assets = new IAsset[](2);
+        assets[0] = IAsset(wETHAddress);  // 0x0f1D1b7abAeC1Df25f2C4Db751686FC5233f6D3f
+        assets[1] = IAsset(imoAddress); // 0x4200000000000000000000000000000000000006
+
+        uint256[] memory maxAmountsIn = new uint256[](2);
+        maxAmountsIn[0] = amount;
+        maxAmountsIn[1] = imoAmount;
+
+        bytes memory userData = abi.encode(
+            1, // = uint256(WeightedPoolUserData.JoinKind.EXACT_TOKENS_IN_FOR_BPT_OUT)
+            maxAmountsIn,
+            uint256(0)
+        );
+
+        IBalancerVault.JoinPoolRequest memory request = IBalancerVault.JoinPoolRequest({
+            assets: assets,
+            maxAmountsIn: maxAmountsIn,
+            userData: userData,
+            fromInternalBalance: false
+        });
+
         // Call zapAndCreateLockFor
         vm.prank(user1, user1);
-        zapper.zapAndLockForNative{value: amount}(imoAmount, unlockTime, user1);
+        rewardPoolDepositWrapper.depositMutipleAndLock(_rewardPoolAddress, IERC20(imoAddress), IERC20(wETHAddress), imoAmount, amount, _balancerPoolId, true,unlockTime, request);
 
         // Check that the lock was created
         uint256 stakeAmount = IERC20(address(votingEscrow)).balanceOf(user1);
@@ -285,18 +304,52 @@ contract VotingEscrowTestFromScratch is Test {
 
         // Approve Zapper contract to spend tokens
         vm.prank(user1, user1);
-        IERC20(imoAddress).approve(address(zapper), imoAmount);
+        IERC20(imoAddress).approve(address(rewardPoolDepositWrapper), imoAmount);
 
         vm.prank(user1, user1);
-        IERC20(wETHAddress).approve(address(zapper), amount);
+        IERC20(wETHAddress).approve(address(rewardPoolDepositWrapper), amount);
 
-        bool isAllowed = smartWalletWhitelist.check(address(zapper));
+        bool isAllowed = smartWalletWhitelist.check(address(rewardPoolDepositWrapper));
         console.log("Is Zapper allowed: ", isAllowed);
 
-    
+        // Mint tokens to user1
+        deal(imoAddress, user1, imoAmount);
+        deal(user1, amount);
+
+        // Approve Zapper contract to spend tokens
+        vm.prank(user1, user1);
+        IERC20(imoAddress).approve(address(rewardPoolDepositWrapper), imoAmount);
+
+        vm.prank(user1, user1);
+        IERC20(wETHAddress).approve(address(rewardPoolDepositWrapper), amount);
+
+        vm.prank(user1, user1);
+        IERC20(bptTokenAddress).approve(address(votingEscrow), type(uint256).max);
+
+        IAsset[] memory assets = new IAsset[](2);
+        assets[0] = IAsset(wETHAddress);  // 0x0f1D1b7abAeC1Df25f2C4Db751686FC5233f6D3f
+        assets[1] = IAsset(imoAddress); // 0x4200000000000000000000000000000000000006
+
+        uint256[] memory maxAmountsIn = new uint256[](2);
+        maxAmountsIn[0] = amount;
+        maxAmountsIn[1] = imoAmount;
+
+        bytes memory userData = abi.encode(
+            1, // = uint256(WeightedPoolUserData.JoinKind.EXACT_TOKENS_IN_FOR_BPT_OUT)
+            maxAmountsIn,
+            uint256(0)
+        );
+
+        IBalancerVault.JoinPoolRequest memory request = IBalancerVault.JoinPoolRequest({
+            assets: assets,
+            maxAmountsIn: maxAmountsIn,
+            userData: userData,
+            fromInternalBalance: false
+        });
+
         // Call zapAndCreateLockFor
         vm.prank(user1, user1);
-        zapper.zapAndDepositForLockNative{value: amount}(imoAmount, user1);
+        rewardPoolDepositWrapper.depositMutipleAndLock(_rewardPoolAddress, IERC20(imoAddress), IERC20(wETHAddress), imoAmount, amount, _balancerPoolId, true,unlockTime, request);
 
         // Check that the deposit was added to the lock
         stakeAmount = IERC20(address(votingEscrow)).balanceOf(user1) ;//- stakeAmount;
@@ -305,28 +358,4 @@ contract VotingEscrowTestFromScratch is Test {
         assertTrue(votingEscrow.locked__end(user1) > block.timestamp, "Deposit was not added to the lock");
     }
 
-    /*
-
-    function testFuzz_ZapAssetsToWethAndStake(bytes calldata swapData, uint256 unlockTime) public {
-        vm.assume(unlockTime > block.timestamp);
-
-        // Call zapAssetsToWethAndStake
-        vm.prank(user1);
-        zapper.zapAssetsToWethAndStake(swapData, unlockTime, user1);
-
-        // Check that the assets were staked
-        // Add your assertions here
-    }
-
-    function testFuzz_AutoCompoundRewards(bytes calldata swapData, uint256 unlockTime, address[] calldata rewardsTokens) public {
-        vm.assume(unlockTime > block.timestamp);
-
-        // Call AutoCompoundRewards
-        vm.prank(user1);
-        zapper.AutoCompoundRewards(swapData, unlockTime, rewardsTokens);
-
-        // Check that the rewards were compounded
-        // Add your assertions here
-    }
-    */
 }

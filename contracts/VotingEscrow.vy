@@ -603,7 +603,7 @@ def deposit_from_zapper(_addr: address, _value: uint256, _unlock_time: uint256):
     @dev only whitelisted addresses (zapper) can deposit for someone else,
        only use for new Locks from zapper
     @param _addr User's wallet address
-    @param _value Amount to add to user's lock
+    @param _value Amount to create user's lock
     """
     self.assert_not_contract(msg.sender) #check if the call is from a whitelisted smart contract (here zapper)
     unlock_time: uint256 = (_unlock_time / WEEK) * WEEK  # Locktime is rounded down to weeks
