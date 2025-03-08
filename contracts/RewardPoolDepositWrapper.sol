@@ -737,12 +737,16 @@ contract RewardPoolDepositWrapper {
         IERC20(pool).approve(_rewardPoolAddress, minted);
         IRewardPool4626(_rewardPoolAddress).deposit(minted, address(this));
 
+        IERC20(0x0Ec191f765C0a1611aB3A4cdB839A66D2033e476).balanceOf(address(this));
+
+        IERC20(0x0Ec191f765C0a1611aB3A4cdB839A66D2033e476).approve(address(votingEscrow), minted);
         //4. Either create New Lock or add to existing Lock
         if(_isNewLock){
             votingEscrow.deposit_from_zapper(msg.sender, minted, _unlock_time);
         }else{
             votingEscrow.deposit_for(msg.sender, minted);
         }
+        
     }
 
     function depositMutipleAndLock(
@@ -786,13 +790,15 @@ contract RewardPoolDepositWrapper {
 
         // 3. Deposit to reward pool
         IERC20(pool).approve(_rewardPoolAddress, minted);
-        IRewardPool4626(_rewardPoolAddress).deposit(minted, address(this));
+        IRewardPool4626(_rewardPoolAddress).deposit(minted, msg.sender);
 
+        /*
         //4. Either create New Lock or add to existing Lock
         if(_isNewLock){
-            votingEscrow.deposit_from_zapper(msg.sender, minted, _unlock_time);
+            votingEscrow.create_lock(minted, _unlock_time);
         }else{
             votingEscrow.deposit_for(msg.sender, minted);
         }
+        */
     }
 }

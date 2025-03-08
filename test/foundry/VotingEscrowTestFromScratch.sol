@@ -48,7 +48,7 @@ contract VotingEscrowTestFromScratch is Test {
     //address votingEscrowAddress = 0xC12Cc45e4689e41F1f9E743E896e2BF4915361f7; // Replace with actual address
     address rewardTokenAddress = 0x5A7a2bf9fFae199f088B25837DcD7E115CF8E1bb; // Replace with actual address
     //address bptTokenAddress = 	0xcCAC11368BDD522fc4DD23F98897712391ab1E00; // Aura eth bpt
-    address bptTokenAddress = 	0x007bb7a4bfc214DF06474E39142288E99540f2b3; // IMO eth bpt
+    address bptTokenAddress = 	0x0Ec191f765C0a1611aB3A4cdB839A66D2033e476; // IMO eth bpt
 
     //address rewardDistributorAddress = 0x7d659A8d16e0C726aFDbAf76C2034fc73141e2d8; // Replace with actual address
     //address rewardFaucetAddress = 0xCC599051522E9Fcd055fa982c825a043d6455905; // Replace with actual address
@@ -229,6 +229,7 @@ contract VotingEscrowTestFromScratch is Test {
 
         // Mint tokens to user1
         deal(imoAddress, user1, imoAmount);
+        deal(wETHAddress, user1, amount);
         deal(user1, amount);
 
         // Approve Zapper contract to spend tokens
@@ -265,12 +266,79 @@ contract VotingEscrowTestFromScratch is Test {
             fromInternalBalance: false
         });
 
+        console.log();
+
         // Call zapAndCreateLockFor
         vm.prank(user1, user1);
         rewardPoolDepositWrapper.depositMutipleAndLock(_rewardPoolAddress, IERC20(imoAddress), IERC20(wETHAddress), imoAmount, amount, _balancerPoolId, true,unlockTime, request);
 
+        console.log("rewardPoolDepositWrapper balance of aura BPT", IERC20(bptTokenAddress).balanceOf((user1)));
+
         // Check that the lock was created
-        uint256 stakeAmount = IERC20(address(votingEscrow)).balanceOf(user1);
+        uint256 stakeAmount = IERC20(address(votingEscrow)).balanceOf(address(rewardPoolDepositWrapper));
+
+        assertTrue(stakeAmount > 0, "Deposit was not added to the lock");
+        assertTrue(votingEscrow.locked__end(user1) > block.timestamp, "Lock was not created");
+    }
+
+    function testFuzz_ZapAndCreateLockFor2() public {
+        uint256 amount = 1e18;
+
+        uint256 unlockTime = block.timestamp + 365 days;
+        uint256 imoScalingFactor  = 4000;
+        uint256 imoAmount = 1e18;//amount*imoScalingFactor;
+
+
+        // Mint tokens to user1
+        deal(imoAddress, user1, imoAmount);
+        deal(wETHAddress, user1, amount);
+        deal(user1, amount);
+
+        // Approve Zapper contract to spend tokens
+        vm.prank(user1, user1);
+        IERC20(imoAddress).approve(address(rewardPoolDepositWrapper), imoAmount);
+
+        vm.prank(user1, user1);
+        IERC20(wETHAddress).approve(address(rewardPoolDepositWrapper), amount);
+
+        bool isAllowed = smartWalletWhitelist.check(address(rewardPoolDepositWrapper));
+        console.log("Is Pool Depositor allowed: ", isAllowed);
+
+        vm.prank(user1, user1);
+        IERC20(bptTokenAddress).approve(address(votingEscrow), type(uint256).max);
+
+        IAsset[] memory assets = new IAsset[](2);
+        assets[0] = IAsset(wETHAddress);  // 0x0f1D1b7abAeC1Df25f2C4Db751686FC5233f6D3f
+        assets[1] = IAsset(imoAddress); // 0x4200000000000000000000000000000000000006
+
+        uint256[] memory maxAmountsIn = new uint256[](2);
+        maxAmountsIn[0] = 0;
+        maxAmountsIn[1] = imoAmount;
+
+        bytes memory userData = abi.encode(
+            1, // = uint256(WeightedPoolUserData.JoinKind.EXACT_TOKENS_IN_FOR_BPT_OUT)
+            maxAmountsIn,
+            uint256(0)
+        );
+
+        IBalancerVault.JoinPoolRequest memory request = IBalancerVault.JoinPoolRequest({
+            assets: assets,
+            maxAmountsIn: maxAmountsIn,
+            userData: userData,
+            fromInternalBalance: false
+        });
+
+        console.log();
+
+        // Call zapAndCreateLockFor
+        vm.prank(user1, user1);
+        rewardPoolDepositWrapper.depositSingleAndLock(_rewardPoolAddress, IERC20(imoAddress), imoAmount, _balancerPoolId, true, unlockTime, request);
+        //rewardPoolDepositWrapper.depositMutipleAndLock(_rewardPoolAddress, IERC20(imoAddress), IERC20(wETHAddress), imoAmount, amount, _balancerPoolId, true,unlockTime, request);
+
+        console.log("rewardPoolDepositWrapper balance of aura BPT", IERC20(bptTokenAddress).balanceOf((user1)));
+
+        // Check that the lock was created
+        uint256 stakeAmount = IERC20(address(votingEscrow)).balanceOf(address(rewardPoolDepositWrapper));
 
         assertTrue(stakeAmount > 0, "Deposit was not added to the lock");
         assertTrue(votingEscrow.locked__end(user1) > block.timestamp, "Lock was not created");
@@ -287,7 +355,7 @@ contract VotingEscrowTestFromScratch is Test {
 
         // Mint tokens to user1
         deal(imoAddress, user1, imoAmount);
-        deal(user1, amount);
+        deal(wETHAddress, user1, amount);
         deal(bptTokenAddress, user1, initialBPTAmount);
 
         vm.prank(user1, user1);
@@ -308,6 +376,8 @@ contract VotingEscrowTestFromScratch is Test {
 
         vm.prank(user1, user1);
         IERC20(wETHAddress).approve(address(rewardPoolDepositWrapper), amount);
+
+        console.log("wETH amount", IERC20(wETHAddress).balanceOf(user1));
 
         bool isAllowed = smartWalletWhitelist.check(address(rewardPoolDepositWrapper));
         console.log("Is Zapper allowed: ", isAllowed);
@@ -347,9 +417,12 @@ contract VotingEscrowTestFromScratch is Test {
             fromInternalBalance: false
         });
 
+        console.log("user1 is", user1);
+        console.log("rewardPoolDepositWrapper is", address(rewardPoolDepositWrapper));
+
         // Call zapAndCreateLockFor
         vm.prank(user1, user1);
-        rewardPoolDepositWrapper.depositMutipleAndLock(_rewardPoolAddress, IERC20(imoAddress), IERC20(wETHAddress), imoAmount, amount, _balancerPoolId, true,unlockTime, request);
+        rewardPoolDepositWrapper.depositMutipleAndLock(_rewardPoolAddress, IERC20(imoAddress), IERC20(wETHAddress), imoAmount, amount, _balancerPoolId, false,unlockTime, request);
 
         // Check that the deposit was added to the lock
         stakeAmount = IERC20(address(votingEscrow)).balanceOf(user1) ;//- stakeAmount;
