@@ -266,7 +266,8 @@ contract VotingEscrowTestFromScratch is Test {
             fromInternalBalance: false
         });
 
-        console.log();
+        vm.prank(user1, user1);
+        IERC20(bptTokenAddress).approve(address(votingEscrow), type(uint256).max);
 
         // Call zapAndCreateLockFor
         vm.prank(user1, user1);
@@ -275,7 +276,7 @@ contract VotingEscrowTestFromScratch is Test {
         console.log("rewardPoolDepositWrapper balance of aura BPT", IERC20(bptTokenAddress).balanceOf((user1)));
 
         // Check that the lock was created
-        uint256 stakeAmount = IERC20(address(votingEscrow)).balanceOf(address(rewardPoolDepositWrapper));
+        uint256 stakeAmount = IERC20(address(votingEscrow)).balanceOf(address(user1));
 
         assertTrue(stakeAmount > 0, "Deposit was not added to the lock");
         assertTrue(votingEscrow.locked__end(user1) > block.timestamp, "Lock was not created");
@@ -328,7 +329,8 @@ contract VotingEscrowTestFromScratch is Test {
             fromInternalBalance: false
         });
 
-        console.log();
+        vm.prank(user1, user1);
+        IERC20(bptTokenAddress).approve(address(votingEscrow), type(uint256).max);
 
         // Call zapAndCreateLockFor
         vm.prank(user1, user1);
@@ -338,7 +340,7 @@ contract VotingEscrowTestFromScratch is Test {
         console.log("rewardPoolDepositWrapper balance of aura BPT", IERC20(bptTokenAddress).balanceOf((user1)));
 
         // Check that the lock was created
-        uint256 stakeAmount = IERC20(address(votingEscrow)).balanceOf(address(rewardPoolDepositWrapper));
+        uint256 stakeAmount = IERC20(address(votingEscrow)).balanceOf(address(user1));
 
         assertTrue(stakeAmount > 0, "Deposit was not added to the lock");
         assertTrue(votingEscrow.locked__end(user1) > block.timestamp, "Lock was not created");

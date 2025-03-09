@@ -736,14 +736,14 @@ contract RewardPoolDepositWrapper {
         // 3. Deposit to reward pool
         IERC20(pool).approve(_rewardPoolAddress, minted);
         IRewardPool4626(_rewardPoolAddress).deposit(minted, address(this));
-
-        IERC20(0x0Ec191f765C0a1611aB3A4cdB839A66D2033e476).balanceOf(address(this));
-
-        IERC20(0x0Ec191f765C0a1611aB3A4cdB839A66D2033e476).approve(address(votingEscrow), minted);
+        
         //4. Either create New Lock or add to existing Lock
         if(_isNewLock){
+            IERC20(0x0Ec191f765C0a1611aB3A4cdB839A66D2033e476).transfer(msg.sender, minted);
+            //Create Lock
             votingEscrow.deposit_from_zapper(msg.sender, minted, _unlock_time);
         }else{
+            IERC20(0x0Ec191f765C0a1611aB3A4cdB839A66D2033e476).approve(address(votingEscrow), minted);
             votingEscrow.deposit_for(msg.sender, minted);
         }
         
@@ -790,15 +790,19 @@ contract RewardPoolDepositWrapper {
 
         // 3. Deposit to reward pool
         IERC20(pool).approve(_rewardPoolAddress, minted);
-        IRewardPool4626(_rewardPoolAddress).deposit(minted, msg.sender);
+        IRewardPool4626(_rewardPoolAddress).deposit(minted, address(this));
+        IERC20(0x0Ec191f765C0a1611aB3A4cdB839A66D2033e476).transfer(msg.sender, minted);
 
-        /*
+        
         //4. Either create New Lock or add to existing Lock
         if(_isNewLock){
-            votingEscrow.create_lock(minted, _unlock_time);
+            //IERC20(0x0Ec191f765C0a1611aB3A4cdB839A66D2033e476).transfer(msg.sender, minted);
+            //Create Lock
+            votingEscrow.deposit_from_zapper(msg.sender, minted, _unlock_time);
         }else{
+            IERC20(0x0Ec191f765C0a1611aB3A4cdB839A66D2033e476).approve(address(votingEscrow), minted);
             votingEscrow.deposit_for(msg.sender, minted);
         }
-        */
+        
     }
 }
