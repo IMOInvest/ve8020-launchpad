@@ -695,11 +695,13 @@ contract RewardPoolDepositWrapper {
 
     IBalancerVault public immutable bVault;
     IVotingEscrow public votingEscrow;
+    address public auraBptToken;
 
 
-    constructor(address _bVault, address _votingEscrow) {
+    constructor(address _bVault, address _votingEscrow, address _auraBptToken) {
         bVault = IBalancerVault(_bVault);
         votingEscrow = IVotingEscrow(_votingEscrow);
+        auraBptToken = _auraBptToken;
     }
 
     /**
@@ -736,14 +738,15 @@ contract RewardPoolDepositWrapper {
         // 3. Deposit to reward pool
         IERC20(pool).approve(_rewardPoolAddress, minted);
         IRewardPool4626(_rewardPoolAddress).deposit(minted, address(this));
+
+        //Transfer back aura BPT to sender
+        IERC20(auraBptToken).transfer(msg.sender, minted);
         
         //4. Either create New Lock or add to existing Lock
         if(_isNewLock){
-            IERC20(0x0Ec191f765C0a1611aB3A4cdB839A66D2033e476).transfer(msg.sender, minted);
             //Create Lock
             votingEscrow.deposit_from_zapper(msg.sender, minted, _unlock_time);
         }else{
-            IERC20(0x0Ec191f765C0a1611aB3A4cdB839A66D2033e476).approve(address(votingEscrow), minted);
             votingEscrow.deposit_for(msg.sender, minted);
         }
         
@@ -791,16 +794,14 @@ contract RewardPoolDepositWrapper {
         // 3. Deposit to reward pool
         IERC20(pool).approve(_rewardPoolAddress, minted);
         IRewardPool4626(_rewardPoolAddress).deposit(minted, address(this));
-        IERC20(0x0Ec191f765C0a1611aB3A4cdB839A66D2033e476).transfer(msg.sender, minted);
-
         
+        //Transfer back aura BPT to sender
+        IERC20(auraBptToken).transfer(msg.sender, minted);
+
         //4. Either create New Lock or add to existing Lock
         if(_isNewLock){
-            //IERC20(0x0Ec191f765C0a1611aB3A4cdB839A66D2033e476).transfer(msg.sender, minted);
-            //Create Lock
             votingEscrow.deposit_from_zapper(msg.sender, minted, _unlock_time);
         }else{
-            IERC20(0x0Ec191f765C0a1611aB3A4cdB839A66D2033e476).approve(address(votingEscrow), minted);
             votingEscrow.deposit_for(msg.sender, minted);
         }
         

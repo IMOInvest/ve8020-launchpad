@@ -148,7 +148,8 @@ contract VotingEscrowTestFromScratch is Test {
 
         rewardPoolDepositWrapper = new RewardPoolDepositWrapper(
             vault, 
-            address(votingEscrow)
+            address(votingEscrow),
+            bptTokenAddress
         );
 
         //Setup wallet checker
@@ -190,7 +191,9 @@ contract VotingEscrowTestFromScratch is Test {
         // Store initial balances
         uint256 initialBalBalance = balToken.balanceOf(receiver);
         uint256 initialAuraBalance = auraToken.balanceOf(receiver);
-        uint256 user1Amount = 10 ether;
+        uint256 user1Amount = 1 ether;
+        deal(bptTokenAddress,user1, user1Amount);
+
 
         vm.prank(user1, user1);
         bptToken.approve(address(votingEscrow), user1Amount);
